@@ -9,7 +9,7 @@
     "compile": "sass site/source/scss/styles.scss site/public/css/styles.css --watch",
     "srvCompile": "sass site/source/scss/styles.scss site/public/css/styles.css",
     "srvPackets": "cp -r node_modules site/public",
-    "srvStartup": "npm run srvCompile && srvPackets",
+    "srvStartup": "npm run srvCompile && npm run srvPackets",
     "prepare": "husky install"
   },
   "repository": {
