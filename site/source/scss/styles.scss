@@ -22,7 +22,7 @@ p {
   background-image: url("../img/container_bg.png");
   background-size: 400px;
   background-repeat: repeat;
-  z-index: 0;
+  z-index: 1;
 }
 
 .main-header {
@@ -62,10 +62,49 @@ p {
 }
 
 .main-content {
+  position: relative;
   margin: 0 auto;
   margin-top: 70px;
   width: 1100px;
   height: 1200px;
   background-color: burlywood;
-  z-index: -1;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  gap: 20px;
+
+  &__content-header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__title {
+    position: relative;
+    background-color: white;
+    width: fit-content;
+    z-index: 2;
+    border-radius: 10px;
+    padding: 13px;
+  }
+
+  &__desc {
+    position: relative;
+    background-color: white;
+    width: fit-content;
+    z-index: 2;
+    border-radius: 10px;
+    padding: 13px;
+  }
+
+  &__content-list {
+    position: relative;
+    background-color: white;
+    margin: 0 auto;
+    width: 100%;
+    height: 1000px;
+    z-index: 2;
+    border-radius: 10px;
+    padding: 13px;
+  }
 }
