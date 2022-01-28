@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll --verbose",
+    "test-cov": "jest --coverage",
+    "compile": "sass site/source/scss/styles.scss site/public/css/styles.css --watch",
+    "srvCompile": "sass site/source/scss/styles.scss site/public/css/styles.css",
+    "srvPackets": "cp -r node_modules site/public",
+    "srvStartup": "npm run srvCompile && srvPackets"
   },
   "repository": {
     "type": "git",
@@ -23,7 +28,8 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
-    "jest": "^27.4.7"
+    "jest": "^27.4.7",
+    "sass": "^1.49.0"
   },
   "jest": {
     "testEnvironment": "jsdom"
