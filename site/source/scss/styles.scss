@@ -111,6 +111,11 @@ p {
     padding-bottom: 20px;
   }
 
+  &__list-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   &__controls {
     display: flex;
     justify-content: space-between;
