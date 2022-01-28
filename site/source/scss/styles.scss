@@ -9,6 +9,32 @@ body {
 
 .main-header {
   width: 100vw;
-  height: 50px;
+  height: 70px;
   background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 200px;
+  padding-right: 20px;
+
+  .main-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    &__item {
+      width: 100px;
+      color: #58586f;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &--selected {
+        background-color: #ffcb04;
+        color: white;
+      }
+    }
+  }
 }
