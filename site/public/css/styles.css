@@ -111,4 +111,37 @@ p {
   width: 100%;
 }
 
+.main-footer {
+  position: relative;
+  width: 100%;
+  background-color: #3d3d3d;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  height: 400px;
+}
+.main-footer__item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-footer__item--right {
+  position: relative;
+  flex-direction: column;
+}
+.main-footer__item--right::before {
+  position: absolute;
+  top: 20%;
+  bottom: 20%;
+  left: 0;
+  content: "";
+  border: 2px solid #2f2f2f;
+}
+.main-footer__item--right ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
 /*# sourceMappingURL=styles.css.map */
