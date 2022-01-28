@@ -1,0 +1,31 @@
+{
+  "name": "w3chwe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pauIbanez/202201-w3chwe-pau-ibanez.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pauIbanez/202201-w3chwe-pau-ibanez/issues"
+  },
+  "homepage": "https://github.com/pauIbanez/202201-w3chwe-pau-ibanez#readme",
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "jest": "^27.4.7"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  }
+}
