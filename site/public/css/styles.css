@@ -104,6 +104,10 @@ p {
   justify-content: flex-end;
   padding-bottom: 20px;
 }
+.main-content__list-container {
+  display: flex;
+  flex-wrap: wrap;
+}
 .main-content__controls {
   display: flex;
   justify-content: space-between;
