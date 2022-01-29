@@ -42,6 +42,8 @@ class PageComponent extends Component {
 
   pokemonListData;
 
+  myPokemonListData;
+
   mainData = [
     {
       title: "All Pokémon",
@@ -123,10 +125,40 @@ class PageComponent extends Component {
       currMainData
     );
 
-    this.populatePokeList();
+    if (this.currentPage === "All Pokémon") {
+      this.populatePokeList();
+    }
+    if (this.currentPage === "My Pokémon") {
+      this.populateMyPokeList();
+    }
   }
 
   async populatePokeList() {
+    const pokemonListHolder = this.element.querySelector(
+      ".main-content__list-container"
+    );
+    const pokemonListResponse = await fetch(
+      "https://pokeapi.co/api/v2/pokemon?limit=8"
+    );
+
+    const pokemonList = await pokemonListResponse.json();
+    this.pokemonListData = pokemonList;
+
+    this.pokemonListData.results.forEach(async (pokemon) => {
+      const pokemonResponse = await fetch(pokemon.url);
+      const pokemonData = await pokemonResponse.json();
+
+      const formattedObject = new PokemonData(pokemonData);
+      new PokemonCardComponent(
+        pokemonListHolder,
+        "pokemon-card",
+        "article",
+        formattedObject
+      );
+    });
+  }
+
+  async populateMyPokeList() {
     const pokemonListHolder = this.element.querySelector(
       ".main-content__list-container"
     );
