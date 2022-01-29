@@ -3,49 +3,52 @@
 import HeaderComponent from "./Components/HeaderComponent.js";
 import PokemonCardComponent from "./Components/PokemonCardComponent.js";
 
-// const myPoke = document.querySelector(".main-nav__item:nth-child(2)");
-
-// myPoke.addEventListener("click", (event) => {
-//   event.preventDefault();
-//   const xmlhttp = new XMLHttpRequest();
-//   xmlhttp.open("GET", "html/mypokemon.html", false);
-//   xmlhttp.send();
-//   document.body.innerHTML = xmlhttp.responseText;
-// });
-const headerData = {
-  nav: {
-    class: "main-nav__item",
-    htmlTag: "button",
-    selectedClass: "main-nav__item--selected",
-
-    navItems: [
-      {
-        selected: true,
-        text: "All Pokémon",
-      },
-
-      {
-        selected: false,
-        text: "My Pokémon",
-      },
-
-      {
-        selected: false,
-        text: "Pokémon Details",
-      },
-    ],
-  },
-
-  info: {
-    content: `<a class="official-link">Official Pokémon Website</a>`,
-  },
-};
-
-new HeaderComponent(document.body, "main-header", "header", headerData);
-
 const container = document.querySelector(".main-content__list-container");
 
 const func = async () => {
+  const headerData = {
+    nav: {
+      class: "main-nav__item",
+      htmlTag: "a",
+      selectedClass: "main-nav__item--selected",
+
+      navItems: [
+        {
+          selected: false,
+          text: "All Pokémon",
+          src: "",
+        },
+
+        {
+          selected: false,
+          text: "My Pokémon",
+          src: "mypokemon",
+        },
+
+        {
+          selected: false,
+          text: "Pokémon Details",
+          src: "placeholder",
+        },
+      ],
+    },
+
+    info: {
+      content: `<a class="official-link">Official Pokémon Website</a>`,
+    },
+  };
+
+  const page = window.location.pathname.split("/").pop();
+
+  headerData.nav.navItems.forEach((navItem) => {
+    if (navItem.src === `${page}`) {
+      // eslint-disable-next-line no-param-reassign
+      navItem.selected = true;
+    }
+  });
+
+  new HeaderComponent(document.body, "main-header", "header", headerData);
+
   const response = await fetch("https://pokeapi.co/api/v2/pokemon/");
   const body = await response.json();
 

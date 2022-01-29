@@ -21,10 +21,13 @@ class HeaderComponent extends Component {
 
   generateNav() {
     const nav = this.element.querySelector("nav");
+
     this.data.nav.navItems.forEach((navItem) => {
       const navElement = document.createElement(this.data.nav.htmlTag);
 
       navElement.className = this.data.nav.class;
+      navElement.href = `${navItem.src}.html`;
+
       if (navItem.selected) {
         navElement.classList.add(this.data.nav.selectedClass);
       }
