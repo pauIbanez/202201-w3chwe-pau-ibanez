@@ -1,4 +1,4 @@
-import Component from "./Component";
+import Component from "./Component.js";
 
 class MainContentComponent extends Component {
   data;
@@ -13,7 +13,7 @@ class MainContentComponent extends Component {
   generateHTML() {
     this.element.innerHTML = `
       <header class="main-content__content-header">
-        <h1 class="main-content__title">${this.data.description}</h1>
+        <h1 class="main-content__title">${this.data.title}</h1>
         <p class="main-content__desc">
           ${this.data.description}
         </p>
