@@ -1,10 +1,16 @@
-class HeaderComponent extends Comment {
+import Component from "./Component.js";
+
+class HeaderComponent extends Component {
   data;
 
   constructor(parentElement, className, htmlTag, data) {
     super(parentElement, className, htmlTag);
 
     this.data = data;
+
+    this.generateHTML();
+    this.generateNav();
+    this.generateInfo();
   }
 
   generateHTML() {
@@ -33,3 +39,5 @@ class HeaderComponent extends Comment {
     this.element.innerHTML += this.data.info.content;
   }
 }
+
+export default HeaderComponent;
