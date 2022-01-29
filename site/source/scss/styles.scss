@@ -83,6 +83,7 @@ p {
   &__title {
     position: relative;
     background-color: white;
+    box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.2);
     width: fit-content;
     z-index: 2;
     border-radius: 10px;
@@ -94,6 +95,7 @@ p {
     background-color: white;
     width: fit-content;
     z-index: 2;
+    box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.2);
     border-radius: 10px;
     padding: 13px;
   }
@@ -104,6 +106,7 @@ p {
     width: 100%;
     height: 1000px;
     z-index: 2;
+    box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.2);
     border-radius: 10px;
     padding: 13px;
     display: flex;
