@@ -1,14 +1,12 @@
 class PokemonData {
-  formattedObject = {};
-
   constructor(pokemonObject) {
     this.generateFormatedObject(pokemonObject);
   }
 
-  static generateFormatedObject(pokemonObject) {
-    this.formattedObject.img = pokemonObject.sprites.other.home.front_default;
-    this.formattedObject.name = pokemonObject.name;
-    this.formattedObject.id = pokemonObject.id;
+  generateFormatedObject(pokemonObject) {
+    this.img = pokemonObject.sprites.other.home.front_default;
+    this.name = pokemonObject.name;
+    this.id = pokemonObject.id;
 
     let abilitiesString;
 
@@ -17,7 +15,7 @@ class PokemonData {
         abilitiesString += ` ${ability.ability.name}`;
       }
     });
-    this.formattedObject.abilities = abilitiesString;
+    this.abilities = abilitiesString;
 
     const typesArray = [];
 
@@ -25,7 +23,16 @@ class PokemonData {
       typesArray.push(type.type.name);
     });
 
-    this.formattedObject.types = typesArray;
+    this.types = typesArray;
+
+    pokemonObject.stats.forEach((stat) => {
+      if (stat.stat.name === "hp") {
+        this.hp = stat.base_stat;
+      }
+      if (stat.stat.name === "attack") {
+        this.attack = stat.base_stat;
+      }
+    });
   }
 }
 export default PokemonData;

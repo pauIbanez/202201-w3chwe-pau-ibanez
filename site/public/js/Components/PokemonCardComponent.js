@@ -40,7 +40,7 @@ class PokemonCardComponent extends Component {
             <div class="stat-value">${this.pokemonObject.abilities}</div>
           </li>
           <li class="pokemon-stats-item">
-            <div class="stat-name">Atack</div>
+            <div class="stat-name">Attack</div>
             <div class="stat-value">${this.pokemonObject.atack}</div>
           </li> 
         </ul>
@@ -54,8 +54,8 @@ class PokemonCardComponent extends Component {
     this.pokemonObject.types.forEach((type) => {
       const typeElement = document.createElement("li");
 
-      typeElement.textContent = type.text;
-      typeElement.className = `type type--${type.text.toLowerCase()}`;
+      typeElement.textContent = type;
+      typeElement.className = `type type--${type.toLowerCase()}`;
 
       typeHolder.append(typeElement);
     });

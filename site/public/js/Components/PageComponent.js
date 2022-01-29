@@ -1,3 +1,4 @@
+import PokemonData from "../PokemonData.js";
 import Component from "./Component.js";
 import FooterComponent from "./FooterComponent.js";
 import HeaderComponent from "./HeaderComponent.js";
@@ -130,14 +131,17 @@ class PageComponent extends Component {
       ".main-content__list-container"
     );
     const pokemonListResponse = await fetch(
-      "https://pokeapi.co/api/v2/pokemon"
+      "https://pokeapi.co/api/v2/pokemon?limit=8"
     );
 
     const pokemonList = await pokemonListResponse.json();
     this.pokemonListData = pokemonList;
 
-    this.pokemonListData.results.forEach((pokemon) => {
-      const formattedObject = new PokemonData(pokemon);
+    this.pokemonListData.results.forEach(async (pokemon) => {
+      const pokemonResponse = await fetch(pokemon.url);
+      const pokemonData = await pokemonResponse.json();
+
+      const formattedObject = new PokemonData(pokemonData);
       new PokemonCardComponent(
         pokemonListHolder,
         "pokemon-card",
