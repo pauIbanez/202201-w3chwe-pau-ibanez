@@ -41,7 +41,13 @@ const renderHeader = async () => {
   const page = window.location.pathname.split("/").pop();
 
   headerData.nav.navItems.forEach((navItem) => {
-    if (navItem.src === `${page}`) {
+    document.body.innerHTML += ` | ${navItem.src} | `;
+    if (navItem.src !== "") {
+      if (`${navItem.src}.html` === `${page}`) {
+        // eslint-disable-next-line no-param-reassign
+        navItem.selected = true;
+      }
+    } else if (`${navItem.src}` === `${page}`) {
       // eslint-disable-next-line no-param-reassign
       navItem.selected = true;
     }
