@@ -1,7 +1,9 @@
+import PokemonData from "../PokemonData.js";
 import Component from "./Component.js";
 import FooterComponent from "./FooterComponent.js";
 import HeaderComponent from "./HeaderComponent.js";
 import MainContentComponent from "./MainContentComponent.js";
+import PokemonCardComponent from "./PokemonCardComponent.js";
 
 class PageComponent extends Component {
   headerData = {
@@ -37,6 +39,8 @@ class PageComponent extends Component {
   };
 
   currentPage;
+
+  pokemonListData;
 
   mainData = [
     {
@@ -118,6 +122,33 @@ class PageComponent extends Component {
       "main",
       currMainData
     );
+
+    this.populatePokeList();
+  }
+
+  async populatePokeList() {
+    const pokemonListHolder = this.element.querySelector(
+      ".main-content__list-container"
+    );
+    const pokemonListResponse = await fetch(
+      "https://pokeapi.co/api/v2/pokemon?limit=8"
+    );
+
+    const pokemonList = await pokemonListResponse.json();
+    this.pokemonListData = pokemonList;
+
+    this.pokemonListData.results.forEach(async (pokemon) => {
+      const pokemonResponse = await fetch(pokemon.url);
+      const pokemonData = await pokemonResponse.json();
+
+      const formattedObject = new PokemonData(pokemonData);
+      new PokemonCardComponent(
+        pokemonListHolder,
+        "pokemon-card",
+        "article",
+        formattedObject
+      );
+    });
   }
 
   buildFooter() {

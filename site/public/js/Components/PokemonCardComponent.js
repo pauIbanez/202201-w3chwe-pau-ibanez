@@ -8,10 +8,55 @@ class PokemonCardComponent extends Component {
 
     this.pokemonObject = pokemonObject;
     this.generateHTML();
+    this.generateTypes();
   }
 
   generateHTML() {
-    this.element.innerHTML = `<img style="width: 200px; height:200px;"src="${this.pokemonObject.sprites.other.home.front_default}"/>`;
+    this.element.innerHTML = `
+        <div class="pokemon-card__hp">
+          <span class="hp-number">${this.pokemonObject.hp}</span>
+          HP
+        </div>
+        <img
+          src="img/ground.png"
+          alt=""
+          class="pokemon-card__img--ground"
+        />
+        <img src="${this.pokemonObject.img}" alt="" class="pokemon-card__img" />
+        
+        <section class="pokemon-card__main-info">
+          <h2 class="pokemin-card__name">${this.pokemonObject.name}</h2>
+          <ul class="pokemon-card__type-holder">
+          </ul>
+        </section>
+        <ul class="pokemon-card__stats">
+          <li class="pokemon-stats-item">
+            <div class="stat-name">ID</div>
+            <div class="stat-value">${this.pokemonObject.id}</div>
+          </li>
+          <li class="pokemon-stats-item">
+            <div class="stat-name">Abilities</div>
+            <div class="stat-value">${this.pokemonObject.abilities}</div>
+          </li>
+          <li class="pokemon-stats-item">
+            <div class="stat-name">Attack</div>
+            <div class="stat-value">${this.pokemonObject.attack}</div>
+          </li> 
+        </ul>
+    `;
+  }
+
+  generateTypes() {
+    const typeHolder = this.element.querySelector(".pokemon-card__type-holder");
+
+    this.pokemonObject.types.forEach((type) => {
+      const typeElement = document.createElement("li");
+
+      typeElement.textContent = type;
+      typeElement.className = `type type--${type.toLowerCase()}`;
+
+      typeHolder.append(typeElement);
+    });
   }
 }
 
