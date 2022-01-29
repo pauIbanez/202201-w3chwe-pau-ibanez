@@ -34,7 +34,7 @@ const func = async () => {
     },
 
     info: {
-      content: `<a class="official-link">Official Pokémon Website</a>`,
+      content: `<a href="https://www.pokemon.com" target="_blank" class="official-link">Official Pokémon Website</a>`,
     },
   };
 
