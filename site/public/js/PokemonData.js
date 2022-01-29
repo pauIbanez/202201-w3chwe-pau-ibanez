@@ -1,9 +1,9 @@
 class PokemonData {
-  constructor(pokemonObject) {
-    this.generateFormatedObject(pokemonObject);
+  constructor(pokemonObject, myPokemon) {
+    this.generateFormatedObject(pokemonObject, myPokemon);
   }
 
-  generateFormatedObject(pokemonObject) {
+  generateFormatedObject(pokemonObject, myPokemon) {
     this.img = pokemonObject.sprites.other.home.front_default;
     this.name = pokemonObject.name;
     this.id = pokemonObject.id;
@@ -34,6 +34,12 @@ class PokemonData {
         this.attack = stat.base_stat;
       }
     });
+
+    if (myPokemon.some((pokemon) => pokemon.id === pokemonObject.id)) {
+      this.doWeHaveIt = true;
+    } else {
+      this.doWeHaveIt = false;
+    }
   }
 }
 export default PokemonData;
