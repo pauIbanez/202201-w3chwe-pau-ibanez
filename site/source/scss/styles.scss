@@ -106,7 +106,7 @@ p {
     position: relative;
     background-color: white;
     width: 100%;
-    height: 1000px;
+    height: fit-content;
     z-index: 2;
     box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.2);
     border-radius: 10px;
@@ -119,7 +119,13 @@ p {
 
   &__list-container {
     display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+    height: fit-content;
+    margin: -10px 0 0 0;
+    padding-bottom: 10px;
     flex-wrap: wrap;
+    background-color: yellow;
   }
 
   &__controls {
@@ -165,6 +171,89 @@ p {
         gap: 20px;
         list-style: none;
       }
+    }
+  }
+}
+
+.pokemon-card {
+  position: relative;
+  margin-top: 10px;
+  width: 262px;
+  height: 350px;
+  background-color: #474747;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  color: white;
+
+  &__hp {
+    position: absolute;
+    display: flex;
+    padding-top: 15px;
+    align-items: baseline;
+    justify-content: center;
+    top: -5px;
+    right: -5px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: #75c02c;
+    font-size: 10px;
+
+    .hp-number {
+      font-size: 1rem;
+    }
+  }
+
+  &__img {
+    margin-top: 10px;
+    width: 90%;
+    height: 200px;
+    object-fit: cover;
+    object-position: bottom;
+    z-index: 1;
+
+    &--ground {
+      position: absolute;
+      top: 180px;
+      z-index: 0;
+    }
+  }
+
+  &__main-info {
+    width: 80%;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    h2 {
+      flex: 1;
+    }
+  }
+
+  &__type-holder {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    flex: 1;
+  }
+
+  &__stats {
+    margin-top: 20px;
+    width: 80%;
+    display: flex;
+    padding: 0;
+    list-style: none;
+    flex-direction: column;
+    gap: 5px;
+
+    .pokemon-stats-item {
+      display: flex;
+      justify-content: space-between;
     }
   }
 }
