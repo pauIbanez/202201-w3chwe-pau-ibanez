@@ -1,4 +1,5 @@
 import Component from "./Component.js";
+import FooterComponent from "./FooterComponent.js";
 import HeaderComponent from "./HeaderComponent.js";
 import MainContentComponent from "./MainContentComponent.js";
 
@@ -64,11 +65,26 @@ class PageComponent extends Component {
     },
   ];
 
+  footerData = {
+    img: "img/pokemon-logo.svg",
+    text: "Propperty of The Pokémon Company",
+    media: [
+      { img: "", link: "" },
+      { img: "", link: "" },
+      { img: "", link: "" },
+      { img: "", link: "" },
+      { img: "", link: "" },
+    ],
+    copyright:
+      "©2022 Pokémon. ©1995 - 2022 Nintendo/Creatures Inc./GAME FREAK inc. TM, ®Nintendo.",
+  };
+
   constructor() {
     super(document.body, "page-holder", "div");
 
     this.buildHeader();
     this.buildMainContent();
+    this.buildFooter();
   }
 
   buildHeader() {
@@ -101,6 +117,15 @@ class PageComponent extends Component {
       "main-content",
       "main",
       currMainData
+    );
+  }
+
+  buildFooter() {
+    new FooterComponent(
+      document.body,
+      "main-footer",
+      "footer",
+      this.footerData
     );
   }
 }
