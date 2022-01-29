@@ -39,7 +39,10 @@ class PageComponent extends Component {
   };
 
   currentPage;
+
   pokemonListData;
+  pokemonCards = [];
+
   myPokemonListData;
 
   mainData = [
@@ -125,7 +128,7 @@ class PageComponent extends Component {
     new HeaderComponent(this.element, "main-header", "header", newHeaderData);
   }
 
-  buildMainContent() {
+  async buildMainContent() {
     const currMainData = this.mainData.find(
       (mainData) => mainData.title === this.currentPage
     );
@@ -136,6 +139,11 @@ class PageComponent extends Component {
       "main",
       currMainData
     );
+
+    const pokemonListResponse = await fetch("http://localhost:4000/pokemon");
+
+    const pokemonList = await pokemonListResponse.json();
+    this.myPokemonListData = pokemonList;
 
     if (this.currentPage === "All Pokémon") {
       this.populatePokeList();
@@ -149,6 +157,7 @@ class PageComponent extends Component {
     const pokemonListHolder = this.element.querySelector(
       ".main-content__list-container"
     );
+    pokemonListHolder.innerHTML = "";
     const pokemonListResponse = await fetch(
       "https://pokeapi.co/api/v2/pokemon?limit=8"
     );
@@ -160,30 +169,44 @@ class PageComponent extends Component {
       const pokemonResponse = await fetch(pokemon.url);
       const pokemonData = await pokemonResponse.json();
 
-      const formattedObject = new PokemonData(pokemonData);
+      const formattedObject = new PokemonData(
+        pokemonData,
+        this.myPokemonListData
+      );
 
-      const onClick = async (add, id) => {
-        if (!add) {
-          fetch(`http://localhost:4000/pokemon/${id}`, {
-            method: "DELETE",
-          });
+      const onClick = async () => {
+        if (formattedObject.doWeHaveIt) {
+          const resp = await fetch(
+            `http://localhost:4000/pokemon/${formattedObject.id}`,
+            {
+              method: "DELETE",
+            }
+          );
+          if (resp.status === 200) {
+            this.buildMainContent();
+          }
         } else {
-          fetch(`http://localhost:4000/pokemon`, {
+          const resp = await fetch(`http://localhost:4000/pokemon`, {
             method: "POST",
             body: JSON.stringify(formattedObject),
             headers: {
               "Content-Type": "application/json",
             },
           });
+          if (resp.status === 201) {
+            this.buildMainContent();
+          }
         }
       };
 
-      new PokemonCardComponent(
-        pokemonListHolder,
-        "pokemon-card",
-        "article",
-        formattedObject,
-        onClick
+      this.pokemonCards.push(
+        new PokemonCardComponent(
+          pokemonListHolder,
+          "pokemon-card",
+          "article",
+          formattedObject,
+          onClick
+        )
       );
     });
   }
@@ -192,10 +215,6 @@ class PageComponent extends Component {
     const pokemonListHolder = this.element.querySelector(
       ".main-content__list-container"
     );
-    const pokemonListResponse = await fetch("http://localhost:4000/pokemon");
-
-    const pokemonList = await pokemonListResponse.json();
-    this.myPokemonListData = pokemonList;
 
     this.myPokemonListData.forEach((pokemon) => {
       new PokemonCardComponent(
