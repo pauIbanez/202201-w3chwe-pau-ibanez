@@ -13,7 +13,6 @@ class PokemonCardComponent extends Component {
 
   generateHTML() {
     this.element.innerHTML = `
-      <article class="pokemon-card">
         <div class="pokemon-card__hp">
           <span class="hp-number">${this.pokemonObject.hp}</span>
           HP
@@ -44,7 +43,6 @@ class PokemonCardComponent extends Component {
             <div class="stat-value">${this.pokemonObject.attack}</div>
           </li> 
         </ul>
-      </article>
     `;
   }
 
