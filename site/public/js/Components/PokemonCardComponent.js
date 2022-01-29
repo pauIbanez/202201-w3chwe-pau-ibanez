@@ -47,6 +47,7 @@ class PokemonCardComponent extends Component {
             <div class="stat-value">${this.pokemonObject.attack}</div>
           </li> 
         </ul>
+        <button class="pokemon-card__overlay"><i class="fas fa-times-circle"></i></button>
     `;
   }
 
