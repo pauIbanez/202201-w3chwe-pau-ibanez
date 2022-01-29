@@ -104,7 +104,7 @@ class PageComponent extends Component {
       }
     });
 
-    new HeaderComponent(document.body, "main-header", "header", newHeaderData);
+    new HeaderComponent(this.element, "main-header", "header", newHeaderData);
   }
 
   buildMainContent() {
@@ -113,7 +113,7 @@ class PageComponent extends Component {
     );
 
     new MainContentComponent(
-      document.body,
+      this.element,
       "main-content",
       "main",
       currMainData
@@ -121,12 +121,7 @@ class PageComponent extends Component {
   }
 
   buildFooter() {
-    new FooterComponent(
-      document.body,
-      "main-footer",
-      "footer",
-      this.footerData
-    );
+    new FooterComponent(this.element, "main-footer", "footer", this.footerData);
   }
 }
 
