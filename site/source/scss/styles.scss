@@ -1,3 +1,5 @@
+@import "../node_modules/font-awesome/css/font-awesome.min.css";
+
 * {
   box-sizing: border-box;
 }
@@ -185,7 +187,6 @@ p {
   flex-direction: column;
   border-radius: 10px;
   color: white;
-  cursor: pointer;
   transition: all 0.2s;
 
   &__overlay {
@@ -193,10 +194,19 @@ p {
     position: absolute;
     top: 10px;
     left: 10px;
-    width: 40px;
-    height: 40px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 30px;
     border-radius: 50%;
     z-index: 2;
+    transition: all 0.6 ease-in-out;
+    transform: rotate(315deg);
+    cursor: pointer;
+
+    &--archived {
+      transform: rotate(0);
+    }
   }
 
   &:hover {
