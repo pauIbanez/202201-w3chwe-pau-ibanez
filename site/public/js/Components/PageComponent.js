@@ -161,11 +161,29 @@ class PageComponent extends Component {
       const pokemonData = await pokemonResponse.json();
 
       const formattedObject = new PokemonData(pokemonData);
+
+      const onClick = async (add, id) => {
+        if (!add) {
+          fetch(`http://localhost:4000/pokemon/${id}`, {
+            method: "DELETE",
+          });
+        } else {
+          fetch(`http://localhost:4000/pokemon`, {
+            method: "POST",
+            body: JSON.stringify(formattedObject),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+        }
+      };
+
       new PokemonCardComponent(
         pokemonListHolder,
         "pokemon-card",
         "article",
-        formattedObject
+        formattedObject,
+        onClick
       );
     });
   }

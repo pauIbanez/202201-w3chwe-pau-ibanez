@@ -2,13 +2,17 @@ import Component from "./Component.js";
 
 class PokemonCardComponent extends Component {
   pokemonObject;
+  onClick;
 
-  constructor(parentElement, className, htmlTag, pokemonObject) {
+  constructor(parentElement, className, htmlTag, pokemonObject, onClick) {
     super(parentElement, className, htmlTag);
 
     this.pokemonObject = pokemonObject;
+    this.onClick = onClick;
+
     this.generateHTML();
     this.generateTypes();
+    this.addEventListener();
   }
 
   generateHTML() {
@@ -56,6 +60,12 @@ class PokemonCardComponent extends Component {
       typeElement.className = `type type--${type.toLowerCase()}`;
 
       typeHolder.append(typeElement);
+    });
+  }
+
+  addEventListener() {
+    this.element.addEventListener("click", () => {
+      this.onClick(true, this.pokemonObject.id);
     });
   }
 }
