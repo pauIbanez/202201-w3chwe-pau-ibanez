@@ -41,7 +41,7 @@ class PokemonCardComponent extends Component {
           </li>
           <li class="pokemon-stats-item">
             <div class="stat-name">Attack</div>
-            <div class="stat-value">${this.pokemonObject.atack}</div>
+            <div class="stat-value">${this.pokemonObject.attack}</div>
           </li> 
         </ul>
       </article>

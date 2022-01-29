@@ -8,13 +8,14 @@ class PokemonData {
     this.name = pokemonObject.name;
     this.id = pokemonObject.id;
 
-    let abilitiesString;
+    let abilitiesString = "";
 
     pokemonObject.abilities.forEach((ability) => {
       if (!ability.hidden) {
         abilitiesString += ` ${ability.ability.name}`;
       }
     });
+
     this.abilities = abilitiesString;
 
     const typesArray = [];
