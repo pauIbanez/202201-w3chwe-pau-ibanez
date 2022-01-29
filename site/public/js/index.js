@@ -5,7 +5,7 @@ import PokemonCardComponent from "./Components/PokemonCardComponent.js";
 
 const container = document.querySelector(".main-content__list-container");
 
-const func = async () => {
+const renderHeader = async () => {
   const headerData = {
     nav: {
       class: "main-nav__item",
@@ -59,4 +59,4 @@ const func = async () => {
     new PokemonCardComponent(container, "", "div", pokeBody);
   });
 };
-func();
+renderHeader();
