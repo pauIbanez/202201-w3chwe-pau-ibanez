@@ -1,68 +1,20 @@
 // const container = document.querySelector("main-content__list-container");
 
-import HeaderComponent from "./Components/HeaderComponent.js";
-import PokemonCardComponent from "./Components/PokemonCardComponent.js";
+import PageComponent from "./Components/PageComponent.js";
 
-const container = document.querySelector(".main-content__list-container");
+// const container = document.querySelector(".main-content__list-container");
 
-const renderHeader = async () => {
-  const headerData = {
-    nav: {
-      class: "main-nav__item",
-      htmlTag: "a",
-      selectedClass: "main-nav__item--selected",
+const renderPage = async () => {
+  new PageComponent();
 
-      navItems: [
-        {
-          selected: false,
-          text: "All Pokémon",
-          src: "",
-        },
+  // const response = await fetch("https://pokeapi.co/api/v2/pokemon/");
+  // const body = await response.json();
 
-        {
-          selected: false,
-          text: "My Pokémon",
-          src: "mypokemon",
-        },
-
-        {
-          selected: false,
-          text: "Pokémon Details",
-          src: "placeholder",
-        },
-      ],
-    },
-
-    info: {
-      content: `<a href="https://www.pokemon.com" target="_blank" class="official-link">Official Pokémon Website</a>`,
-    },
-  };
-
-  const page = window.location.pathname.split("/").pop();
-
-  headerData.nav.navItems.forEach((navItem) => {
-    document.body.innerHTML += ` | ${navItem.src} | `;
-    if (navItem.src !== "") {
-      if (`${navItem.src}.html` === `${page}`) {
-        // eslint-disable-next-line no-param-reassign
-        navItem.selected = true;
-      }
-    } else if (`${navItem.src}` === `${page}`) {
-      // eslint-disable-next-line no-param-reassign
-      navItem.selected = true;
-    }
-  });
-
-  new HeaderComponent(document.body, "main-header", "header", headerData);
-
-  const response = await fetch("https://pokeapi.co/api/v2/pokemon/");
-  const body = await response.json();
-
-  const pokemons = body.results;
-  pokemons.forEach(async (pokemon) => {
-    const pokemonResp = await fetch(pokemon.url);
-    const pokeBody = await pokemonResp.json();
-    new PokemonCardComponent(container, "", "div", pokeBody);
-  });
+  // const pokemons = body.results;
+  // pokemons.forEach(async (pokemon) => {
+  //   const pokemonResp = await fetch(pokemon.url);
+  //   const pokeBody = await pokemonResp.json();
+  //   new PokemonCardComponent(container, "", "div", pokeBody);
+  // });
 };
-renderHeader();
+renderPage();
