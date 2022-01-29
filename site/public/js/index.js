@@ -1,8 +1,6 @@
 // const container = document.querySelector("main-content__list-container");
 
-import HeaderComponent from "./Components/HeaderComponent.js";
 import PageComponent from "./Components/PageComponent.js";
-import PokemonCardComponent from "./Components/PokemonCardComponent.js";
 
 // const container = document.querySelector(".main-content__list-container");
 

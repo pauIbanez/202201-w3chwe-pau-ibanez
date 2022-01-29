@@ -37,10 +37,6 @@ class PageComponent extends Component {
   constructor() {
     super(document.body, "page-holder", "div");
 
-    this.buildPage();
-  }
-
-  buildPage() {
     this.buildHeader();
   }
 
