@@ -39,9 +39,7 @@ class PageComponent extends Component {
   };
 
   currentPage;
-
   pokemonListData;
-
   myPokemonListData;
 
   mainData = [
@@ -110,6 +108,20 @@ class PageComponent extends Component {
       }
     });
 
+    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
+    // this.headerData.nav.navItems.forEach((navItem, index) => {
+    //   if (navItem.src !== "") {
+    //     if (`${navItem.src}` === `${page}`) {
+    //       newHeaderData.nav.navItems[index].selected = true;
+    //       this.currentPage = navItem.text;
+    //       const a = 3;
+    //     }
+    //   } else if (`${navItem.src}` === `${page}`) {
+    //     newHeaderData.nav.navItems[index].selected = true;
+    //     this.currentPage = navItem.text;
+    //   }
+    // });
+
     new HeaderComponent(this.element, "main-header", "header", newHeaderData);
   }
 
@@ -162,23 +174,17 @@ class PageComponent extends Component {
     const pokemonListHolder = this.element.querySelector(
       ".main-content__list-container"
     );
-    const pokemonListResponse = await fetch(
-      "https://pokeapi.co/api/v2/pokemon?limit=8"
-    );
+    const pokemonListResponse = await fetch("http://localhost:4000/pokemon");
 
     const pokemonList = await pokemonListResponse.json();
-    this.pokemonListData = pokemonList;
+    this.myPokemonListData = pokemonList;
 
-    this.pokemonListData.results.forEach(async (pokemon) => {
-      const pokemonResponse = await fetch(pokemon.url);
-      const pokemonData = await pokemonResponse.json();
-
-      const formattedObject = new PokemonData(pokemonData);
+    this.myPokemonListData.forEach((pokemon) => {
       new PokemonCardComponent(
         pokemonListHolder,
         "pokemon-card",
         "article",
-        formattedObject
+        pokemon
       );
     });
   }
