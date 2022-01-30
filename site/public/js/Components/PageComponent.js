@@ -190,11 +190,15 @@ class PageComponent extends Component {
 
     if (this.pokemonListData.previous !== null) {
       pageControllData.previous = async () => {
+        const scrollPosition = document.scrollingElement.scrollTop;
         const newPokeResponse = await fetch(this.pokemonListData.previous);
         const responseBody = await newPokeResponse.json();
 
         this.pokemonListData = responseBody;
         this.buildMainContent();
+        setTimeout(() => {
+          document.scrollingElement.scrollTop = scrollPosition;
+        }, 20);
       };
     } else {
       pageControllData.previous = null;
@@ -202,11 +206,15 @@ class PageComponent extends Component {
 
     if (this.pokemonListData.next !== null) {
       pageControllData.next = async () => {
+        const scrollPosition = document.scrollingElement.scrollTop;
         const newPokeResponse = await fetch(this.pokemonListData.next);
         const responseBody = await newPokeResponse.json();
 
         this.pokemonListData = responseBody;
         this.buildMainContent();
+        setTimeout(() => {
+          document.scrollingElement.scrollTop = scrollPosition;
+        }, 20);
       };
     } else {
       pageControllData.next = null;
@@ -309,6 +317,8 @@ class PageComponent extends Component {
         )
       );
     });
+
+    window.scrollY = this.scrollPosition;
   }
 
   async populateMyPokeList() {
@@ -359,6 +369,8 @@ class PageComponent extends Component {
       "article",
       formattedPokemonObject
     );
+
+    window.scrollY = this.scrollPosition;
 
     this.buildFooter();
   }

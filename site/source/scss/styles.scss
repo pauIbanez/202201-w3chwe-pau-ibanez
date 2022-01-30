@@ -184,8 +184,30 @@ p {
   &__controls {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 40px;
     width: 100%;
+
+    button {
+      width: 200px;
+      height: 40px;
+      background-color: red;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-family: inherit;
+      font-size: 16px;
+      cursor: pointer;
+
+      &:hover:not(:disabled) {
+        font-weight: 800;
+      }
+
+      &:disabled {
+        filter: brightness(0.7);
+        cursor: inherit;
+      }
+    }
   }
 }
 
