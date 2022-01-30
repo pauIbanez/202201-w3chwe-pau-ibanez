@@ -5,6 +5,7 @@ import HeaderComponent from "./HeaderComponent.js";
 import MainContentComponent from "./MainContentComponent.js";
 import PageControllsComponent from "./PageControllsComponent.js";
 import PokemonCardComponent from "./PokemonCardComponent.js";
+import PokemonDetailsMainComponent from "./PokemonDetailsMainComponent.js";
 
 class PageComponent extends Component {
   headerData = {
@@ -29,7 +30,7 @@ class PageComponent extends Component {
         {
           selected: false,
           text: "Pokémon Details",
-          src: "placeholder",
+          src: "pokemondetails",
         },
       ],
     },
@@ -98,26 +99,26 @@ class PageComponent extends Component {
     const params = new URLSearchParams(window.location.search);
     const pokemonID = params.get("id");
 
-    // if (window.location.pathname !== "/pokemondetails") {
-    //   if (pokemonID === null) {
-    //     this.getFirstPokemonList();
-    //   } else {
-    //     const a = 3;
-    //     window.location.href = `pokemondetails${window.location.search}`;
-    //   }
-    // } else {
-    //   this.buildPokemonDetails(pokemonID);
-    // }
-
-    if (window.location.pathname !== "/pokemondetails.html") {
+    if (window.location.pathname !== "/pokemondetails") {
       if (pokemonID === null) {
         this.getFirstPokemonList();
       } else {
-        window.location.href = `pokemondetails.html${window.location.search}`;
+        const a = 3;
+        window.location.href = `pokemondetails${window.location.search}`;
       }
     } else {
       this.buildPokemonDetails(pokemonID);
     }
+
+    // if (window.location.pathname !== "/pokemondetails.html") {
+    //   if (pokemonID === null) {
+    //     this.getFirstPokemonList();
+    //   } else {
+    //     window.location.href = `pokemondetails.html${window.location.search}`;
+    //   }
+    // } else {
+    //   this.buildPokemonDetails(pokemonID);
+    // }
   }
 
   buildHeader() {
@@ -125,31 +126,31 @@ class PageComponent extends Component {
 
     const newHeaderData = this.headerData;
 
-    this.headerData.nav.navItems.forEach((navItem, index) => {
-      if (navItem.src !== "") {
-        if (`${navItem.src}.html` === `${page}`) {
-          newHeaderData.nav.navItems[index].selected = true;
-          this.currentPage = navItem.text;
-        }
-      } else if (`${navItem.src}` === `${page}`) {
-        newHeaderData.nav.navItems[index].selected = true;
-        this.currentPage = navItem.text;
-      }
-    });
-
-    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
     // this.headerData.nav.navItems.forEach((navItem, index) => {
     //   if (navItem.src !== "") {
-    //     if (`${navItem.src}` === `${page}`) {
+    //     if (`${navItem.src}.html` === `${page}`) {
     //       newHeaderData.nav.navItems[index].selected = true;
     //       this.currentPage = navItem.text;
-    //       const a = 3;
     //     }
     //   } else if (`${navItem.src}` === `${page}`) {
     //     newHeaderData.nav.navItems[index].selected = true;
     //     this.currentPage = navItem.text;
     //   }
     // });
+
+    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
+    this.headerData.nav.navItems.forEach((navItem, index) => {
+      if (navItem.src !== "") {
+        if (`${navItem.src}` === `${page}`) {
+          newHeaderData.nav.navItems[index].selected = true;
+          this.currentPage = navItem.text;
+          const a = 3;
+        }
+      } else if (`${navItem.src}` === `${page}`) {
+        newHeaderData.nav.navItems[index].selected = true;
+        this.currentPage = navItem.text;
+      }
+    });
 
     new HeaderComponent(this.element, "main-header", "header", newHeaderData);
   }
@@ -330,7 +331,14 @@ class PageComponent extends Component {
     );
 
     const pokemonInfo = await pokemonResponse.json();
-    this.element.innerHTML += `<img src="${pokemonInfo.sprites.other.home.front_default}"/>`;
+    this.element.innerHTML += "";
+
+    new PokemonDetailsMainComponent(
+      this.element,
+      "main-content",
+      "main",
+      pokemonInfo
+    );
 
     this.buildFooter();
   }
