@@ -23,18 +23,22 @@ class HeaderComponent extends Component {
     const nav = this.element.querySelector("nav");
 
     this.data.nav.navItems.forEach((navItem) => {
-      const navElement = document.createElement(this.data.nav.htmlTag);
+      const element = document.createElement(this.data.nav.htmlTag);
+      element.innerHTML = `<img src="img/header-icon.png" />`;
 
-      navElement.className = this.data.nav.class;
-      navElement.href = `${navItem.src}.html`;
+      const navElement = document.createElement("span");
+
+      element.className = this.data.nav.class;
+      element.href = `${navItem.src}.html`;
 
       if (navItem.selected) {
-        navElement.classList.add(this.data.nav.selectedClass);
+        element.classList.add(this.data.nav.selectedClass);
       }
 
       navElement.textContent = navItem.text;
 
-      nav.append(navElement);
+      element.append(navElement);
+      nav.append(element);
     });
   }
 

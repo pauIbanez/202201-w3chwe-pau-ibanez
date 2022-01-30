@@ -1,7 +1,12 @@
 @import "../node_modules/font-awesome/css/font-awesome.min.css";
+@import url(../fonts/bahnschrift.ttf);
 
 * {
   box-sizing: border-box;
+}
+:root {
+  font-family: "bahnschrift", sans-serif;
+  color: #58586f;
 }
 
 body {
@@ -42,6 +47,26 @@ p {
   padding-right: 20px;
   z-index: 3;
 
+  .official-link {
+    width: 100px;
+    font-size: 13px;
+    color: #58586f;
+    text-decoration: none;
+
+    &:hover {
+      color: red;
+      img {
+        filter: invert(18%) sepia(95%) saturate(6965%) hue-rotate(358deg)
+          brightness(101%) contrast(115%);
+      }
+    }
+
+    img {
+      height: 13px;
+      margin-left: 5px;
+    }
+  }
+
   .main-nav {
     display: flex;
     justify-content: center;
@@ -49,17 +74,42 @@ p {
     height: 100%;
 
     &__item {
-      width: 100px;
+      width: 200px;
       color: #58586f;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       pointer-events: all;
+      gap: 8px;
+
+      text-decoration: none;
+
+      &:hover {
+        background-color: #ffde62;
+        // color: white;
+
+        img {
+          visibility: visible;
+        }
+      }
+
+      img {
+        height: 40px;
+        visibility: hidden;
+        filter: brightness(1);
+      }
 
       &--selected {
         background-color: #ffcb04;
         color: white;
+        &:hover {
+          background-color: #ffcb04;
+        }
+
+        img {
+          visibility: visible;
+        }
       }
     }
   }
