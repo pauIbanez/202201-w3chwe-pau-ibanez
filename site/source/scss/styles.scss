@@ -513,6 +513,11 @@ p {
       color: white;
       font-family: inherit;
       font-size: 20px;
+
+      &:hover:not(:disabled) {
+        font-weight: 800;
+        cursor: pointer;
+      }
     }
   }
 }
