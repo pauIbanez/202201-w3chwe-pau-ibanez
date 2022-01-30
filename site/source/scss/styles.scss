@@ -173,10 +173,10 @@ p {
 
   &__list-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 7px;
     align-content: flex-start;
     height: fit-content;
-    margin: -7px 0 0 0;
     padding-bottom: 10px;
     flex-wrap: wrap;
   }
@@ -253,7 +253,6 @@ p {
 
 .pokemon-card {
   position: relative;
-  margin-top: 7px;
   width: 262px;
   height: 380px;
   background-color: #474747;
