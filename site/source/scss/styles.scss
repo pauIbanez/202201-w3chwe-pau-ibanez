@@ -134,6 +134,7 @@ p {
     margin: -7px 0 0 0;
     padding-bottom: 10px;
     flex-wrap: wrap;
+    background-color: #474747;
   }
 
   &__controls {
@@ -303,20 +304,20 @@ p {
 .details-holder {
   height: 100%;
   width: 100%;
-  background-color: red;
+
   display: flex;
   flex-direction: column;
 
   &__details {
     height: 85%;
-    background-color: blue;
+    // background-color: blue;
     display: flex;
     padding: 20px;
   }
 
   &__img-holder {
     height: 90%;
-    background-color: brown;
+    // background-color: brown;
     width: 350px;
     border-radius: 10px;
     position: relative;
@@ -328,7 +329,7 @@ p {
     position: absolute;
     width: 100%;
     margin: 0 auto;
-    top: 330px;
+    top: 340px;
     z-index: 0;
   }
   &__img {
