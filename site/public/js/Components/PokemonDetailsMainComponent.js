@@ -38,7 +38,10 @@ class PokemonDetailsMainComponent extends Component {
             </section>
           </div>
         </div>
-        <div class="details-holder__controls"></div>
+        <div class="details-holder__controls">
+        <button class="controls__shiny"> Make Shiny </button>
+        <button class="controls__mylist"> Add to list </button>
+        </div>
     `;
   }
 
