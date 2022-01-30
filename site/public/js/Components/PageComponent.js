@@ -333,11 +333,16 @@ class PageComponent extends Component {
     const pokemonInfo = await pokemonResponse.json();
     this.element.innerHTML += "";
 
+    const formattedPokemonObject = new PokemonData(
+      pokemonInfo,
+      this.myPokemonListData
+    );
+
     new PokemonDetailsMainComponent(
       this.element,
       "main-content",
       "main",
-      pokemonInfo
+      formattedPokemonObject
     );
 
     this.buildFooter();
