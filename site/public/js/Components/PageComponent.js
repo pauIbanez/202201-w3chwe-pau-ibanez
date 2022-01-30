@@ -90,8 +90,23 @@ class PageComponent extends Component {
   constructor() {
     super(document.body, "page-holder", "div");
 
+    this.assesParams();
     this.buildHeader();
-    this.getFirstPokemonList();
+  }
+
+  assesParams() {
+    const params = new URLSearchParams(window.location.search);
+    const pokemonID = params.get("id");
+
+    if (window.location !== "pokemondetails.html") {
+      if (pokemonID === null) {
+        this.getFirstPokemonList();
+      } else {
+        window.location.href = `pokemondetails.html/${window.location.search}`;
+      }
+    } else {
+      this.buildPokemonDetails(pokemonID);
+    }
   }
 
   buildHeader() {
@@ -99,31 +114,31 @@ class PageComponent extends Component {
 
     const newHeaderData = this.headerData;
 
-    this.headerData.nav.navItems.forEach((navItem, index) => {
-      if (navItem.src !== "") {
-        if (`${navItem.src}.html` === `${page}`) {
-          newHeaderData.nav.navItems[index].selected = true;
-          this.currentPage = navItem.text;
-        }
-      } else if (`${navItem.src}` === `${page}`) {
-        newHeaderData.nav.navItems[index].selected = true;
-        this.currentPage = navItem.text;
-      }
-    });
-
-    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
     // this.headerData.nav.navItems.forEach((navItem, index) => {
     //   if (navItem.src !== "") {
-    //     if (`${navItem.src}` === `${page}`) {
+    //     if (`${navItem.src}.html` === `${page}`) {
     //       newHeaderData.nav.navItems[index].selected = true;
     //       this.currentPage = navItem.text;
-    //       const a = 3;
     //     }
     //   } else if (`${navItem.src}` === `${page}`) {
     //     newHeaderData.nav.navItems[index].selected = true;
     //     this.currentPage = navItem.text;
     //   }
     // });
+
+    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
+    this.headerData.nav.navItems.forEach((navItem, index) => {
+      if (navItem.src !== "") {
+        if (`${navItem.src}` === `${page}`) {
+          newHeaderData.nav.navItems[index].selected = true;
+          this.currentPage = navItem.text;
+          const a = 3;
+        }
+      } else if (`${navItem.src}` === `${page}`) {
+        newHeaderData.nav.navItems[index].selected = true;
+        this.currentPage = navItem.text;
+      }
+    });
 
     new HeaderComponent(this.element, "main-header", "header", newHeaderData);
   }
