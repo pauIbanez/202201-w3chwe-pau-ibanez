@@ -350,7 +350,6 @@ p {
     object-fit: cover;
     object-position: bottom;
     z-index: 1;
-    filter: saturate(2);
 
     &--ground {
       position: absolute;
@@ -440,7 +439,6 @@ p {
   }
   &__img {
     z-index: 1;
-    filter: saturate(2);
   }
 
   &__info-holder {
