@@ -9,6 +9,7 @@ class PokemonCardComponent extends Component {
 
     this.pokemonObject = pokemonObject;
     this.onClick = onClick;
+    this.pokemonObject.htmlElement = this.element;
 
     this.generateHTML();
     this.generateTypes();

@@ -99,31 +99,31 @@ class PageComponent extends Component {
 
     const newHeaderData = this.headerData;
 
-    this.headerData.nav.navItems.forEach((navItem, index) => {
-      if (navItem.src !== "") {
-        if (`${navItem.src}.html` === `${page}`) {
-          newHeaderData.nav.navItems[index].selected = true;
-          this.currentPage = navItem.text;
-        }
-      } else if (`${navItem.src}` === `${page}`) {
-        newHeaderData.nav.navItems[index].selected = true;
-        this.currentPage = navItem.text;
-      }
-    });
-
-    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
     // this.headerData.nav.navItems.forEach((navItem, index) => {
     //   if (navItem.src !== "") {
-    //     if (`${navItem.src}` === `${page}`) {
+    //     if (`${navItem.src}.html` === `${page}`) {
     //       newHeaderData.nav.navItems[index].selected = true;
     //       this.currentPage = navItem.text;
-    //       const a = 3;
     //     }
     //   } else if (`${navItem.src}` === `${page}`) {
     //     newHeaderData.nav.navItems[index].selected = true;
     //     this.currentPage = navItem.text;
     //   }
     // });
+
+    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
+    this.headerData.nav.navItems.forEach((navItem, index) => {
+      if (navItem.src !== "") {
+        if (`${navItem.src}` === `${page}`) {
+          newHeaderData.nav.navItems[index].selected = true;
+          this.currentPage = navItem.text;
+          const a = 3;
+        }
+      } else if (`${navItem.src}` === `${page}`) {
+        newHeaderData.nav.navItems[index].selected = true;
+        this.currentPage = navItem.text;
+      }
+    });
 
     new HeaderComponent(this.element, "main-header", "header", newHeaderData);
   }
@@ -171,35 +171,41 @@ class PageComponent extends Component {
       const pokemonResponse = await fetch(pokemon.url);
       const pokemonData = await pokemonResponse.json();
 
-      const formattedObject = new PokemonData(
+      const formattedPokemonObject = new PokemonData(
         pokemonData,
         this.myPokemonListData
       );
 
       const onClick = async () => {
-        if (formattedObject.doWeHaveIt) {
+        if (formattedPokemonObject.doWeHaveIt) {
           const resp = await fetch(
-            `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon/${formattedObject.id}`,
+            `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon/${formattedPokemonObject.id}`,
             {
               method: "DELETE",
             }
           );
           if (resp.status === 200) {
-            this.buildMainContent();
+            formattedPokemonObject.htmlElement
+              .querySelector("button")
+              .classList.remove("pokemon-card__overlay--archived");
+            formattedPokemonObject.doWeHaveIt = false;
           }
         } else {
           const resp = await fetch(
             `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon`,
             {
               method: "POST",
-              body: JSON.stringify(formattedObject),
+              body: JSON.stringify(formattedPokemonObject),
               headers: {
                 "Content-Type": "application/json",
               },
             }
           );
           if (resp.status === 201) {
-            this.buildMainContent();
+            formattedPokemonObject.htmlElement
+              .querySelector("button")
+              .classList.add("pokemon-card__overlay--archived");
+            formattedPokemonObject.doWeHaveIt = true;
           }
         }
       };
@@ -209,7 +215,7 @@ class PageComponent extends Component {
           pokemonListHolder,
           "pokemon-card",
           "article",
-          formattedObject,
+          formattedPokemonObject,
           onClick
         )
       );
