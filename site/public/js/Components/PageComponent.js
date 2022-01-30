@@ -5,6 +5,7 @@ import HeaderComponent from "./HeaderComponent.js";
 import MainContentComponent from "./MainContentComponent.js";
 import PageControllsComponent from "./PageControllsComponent.js";
 import PokemonCardComponent from "./PokemonCardComponent.js";
+import PokemonDetailsMainComponent from "./PokemonDetailsMainComponent.js";
 
 class PageComponent extends Component {
   headerData = {
@@ -29,7 +30,7 @@ class PageComponent extends Component {
         {
           selected: false,
           text: "Pokémon Details",
-          src: "placeholder",
+          src: "pokemondetails",
         },
       ],
     },
@@ -94,9 +95,16 @@ class PageComponent extends Component {
     this.buildHeader();
   }
 
-  assesParams() {
+  async assesParams() {
     const params = new URLSearchParams(window.location.search);
     const pokemonID = params.get("id");
+
+    const myPokemonListResponse = await fetch(
+      "https://w3chwe-my-pokemon-api.herokuapp.com/pokemon"
+    );
+
+    const myPokemonList = await myPokemonListResponse.json();
+    this.myPokemonListData = myPokemonList;
 
     // if (window.location.pathname !== "/pokemondetails") {
     //   if (pokemonID === null) {
@@ -208,7 +216,8 @@ class PageComponent extends Component {
       this.element,
       "main-content",
       "main",
-      currMainData
+      currMainData,
+      "main-content__list-container"
     );
 
     const controllsParent = pokemonListComponent.element.querySelector(
@@ -221,13 +230,6 @@ class PageComponent extends Component {
       "div",
       pageControllData
     );
-
-    const myPokemonListResponse = await fetch(
-      "https://w3chwe-my-pokemon-api.herokuapp.com/pokemon"
-    );
-
-    const myPokemonList = await myPokemonListResponse.json();
-    this.myPokemonListData = myPokemonList;
 
     if (this.currentPage === "All Pokémon") {
       this.populatePokeList();
@@ -330,7 +332,31 @@ class PageComponent extends Component {
     );
 
     const pokemonInfo = await pokemonResponse.json();
-    this.element.innerHTML += `<img src="${pokemonInfo.sprites.other.home.front_default}"/>`;
+    this.element.innerHTML += "";
+
+    const formattedPokemonObject = new PokemonData(
+      pokemonInfo,
+      this.myPokemonListData
+    );
+    const currMainData = this.mainTextData.find(
+      (mainTextDataItem) => mainTextDataItem.title === this.currentPage
+    );
+
+    const mainContent = new MainContentComponent(
+      this.element,
+      "main-content",
+      "main",
+      currMainData,
+      "details-holder"
+    );
+
+    const detailsHolder = mainContent.element.querySelector(".details-holder");
+    new PokemonDetailsMainComponent(
+      detailsHolder,
+      "details-holder",
+      "article",
+      formattedPokemonObject
+    );
 
     this.buildFooter();
   }

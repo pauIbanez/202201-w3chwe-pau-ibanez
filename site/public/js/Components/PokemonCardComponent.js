@@ -18,9 +18,21 @@ class PokemonCardComponent extends Component {
   }
 
   generateHTML() {
+    let hp;
+    let attack;
+
+    this.pokemonObject.stats.forEach((stat) => {
+      if (stat.name === "hp") {
+        hp = stat.value;
+      }
+      if (stat.name === "attack") {
+        attack = stat.value;
+      }
+    });
+
     this.element.innerHTML = `
         <div class="pokemon-card__hp">
-          <span class="hp-number">${this.pokemonObject.hp}</span>
+          <span class="hp-number">${hp}</span>
           HP
         </div>
         <img
@@ -46,7 +58,7 @@ class PokemonCardComponent extends Component {
           </li>
           <li class="pokemon-stats-item">
             <div class="stat-name">Attack</div>
-            <div class="stat-value">${this.pokemonObject.attack}</div>
+            <div class="stat-value">${attack}</div>
           </li> 
         </ul>
         <button class="pokemon-card__overlay"><i class="fa fa-times-circle"></i></button>

@@ -3,10 +3,11 @@ import Component from "./Component.js";
 class MainContentComponent extends Component {
   textData;
 
-  constructor(parentElement, className, htmlTag, textData) {
+  constructor(parentElement, className, htmlTag, textData, mainContentsClass) {
     super(parentElement, className, htmlTag);
 
     this.textData = textData;
+    this.mainContentsClass = mainContentsClass;
     this.generateHTML();
   }
 
@@ -19,7 +20,7 @@ class MainContentComponent extends Component {
         </p>
       </header>
       <section class="main-content__content-list">
-        <div class="main-content__list-container">
+        <div class="${this.mainContentsClass}">
         </div>
       </section>
     `;

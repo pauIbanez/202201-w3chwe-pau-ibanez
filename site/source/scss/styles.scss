@@ -292,3 +292,48 @@ p {
     }
   }
 }
+
+.details-holder {
+  height: 100%;
+  width: 100%;
+  background-color: #474747;
+  box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  &__details {
+    height: 85%;
+    // background-color: blue;
+    display: flex;
+    padding: 20px;
+  }
+
+  &__img-holder {
+    height: 90%;
+    // background-color: brown;
+    width: 350px;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__ground {
+    position: absolute;
+    width: 100%;
+    margin: 0 auto;
+    top: 340px;
+    z-index: 0;
+  }
+  &__img {
+    z-index: 1;
+  }
+
+  &__controls {
+    height: 15%;
+    background-color: brown;
+  }
+}

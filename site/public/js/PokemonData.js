@@ -26,14 +26,27 @@ class PokemonData {
 
     this.types = typesArray;
 
+    const stats = [];
+
     pokemonObject.stats.forEach((stat) => {
-      if (stat.stat.name === "hp") {
-        this.hp = stat.base_stat;
-      }
-      if (stat.stat.name === "attack") {
-        this.attack = stat.base_stat;
-      }
+      const statObject = { name: stat.stat.name, value: stat.base_stat };
+      stats.push(statObject);
     });
+
+    this.stats = stats;
+
+    this.shiny = false;
+
+    this.weight = pokemonObject.weight;
+
+    this.height = 7;
+
+    const moves = [];
+    pokemonObject.moves.forEach(({ move }) => {
+      moves.push(move.name);
+    });
+
+    this.moves = moves;
 
     if (myPokemon.some((pokemon) => pokemon.id === pokemonObject.id)) {
       this.doWeHaveIt = true;
