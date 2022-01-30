@@ -4,7 +4,7 @@ class PokemonData {
   }
 
   generateFormatedObject(pokemonObject, myPokemon) {
-    this.img = pokemonObject.sprites.other.home.front_default;
+    this.img = pokemonObject.sprites.other["official-artwork"].front_default;
     this.name = pokemonObject.name;
     this.id = pokemonObject.id;
 

@@ -343,8 +343,8 @@ p {
   }
 
   &__img {
-    margin-top: 10px;
-    width: 90%;
+    margin-top: 20px;
+    width: 75%;
     height: 220px;
     object-fit: cover;
     object-position: bottom;
@@ -352,7 +352,7 @@ p {
 
     &--ground {
       position: absolute;
-      top: 200px;
+      top: 190px;
       z-index: 0;
     }
   }
