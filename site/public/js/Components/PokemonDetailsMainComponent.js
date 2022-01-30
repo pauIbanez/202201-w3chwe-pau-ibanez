@@ -53,7 +53,11 @@ class PokemonDetailsMainComponent extends Component {
     );
 
     this.pokemonData.types.forEach((type) => {
-      const typeElement = new Component(typesHolder, `list-item ${type}`, "li");
+      const typeElement = new Component(
+        typesHolder,
+        `list-item type ${type}`,
+        "li"
+      );
       typeElement.element.textContent = this.capitalizeFirstLetter(type);
     });
 

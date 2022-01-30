@@ -318,15 +318,6 @@ p {
       flex: 1;
       font-size: 20px;
     }
-
-    .type {
-      border-radius: 10px;
-      min-width: 50px;
-      padding: 5px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
   }
 
   &__type-holder {
@@ -456,6 +447,15 @@ p {
   }
 }
 
+.type {
+  border-radius: 10px;
+  min-width: 50px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .normal {
   background-color: #a8a87b;
 }
@@ -508,7 +508,7 @@ p {
   background-color: #f4d135;
 }
 
-.psychc {
+.psychic {
   background-color: #ef5c85;
 }
 
