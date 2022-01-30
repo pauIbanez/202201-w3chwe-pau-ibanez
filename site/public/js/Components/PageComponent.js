@@ -329,11 +329,28 @@ class PageComponent extends Component {
     pokemonListHolder.innerHTML = "";
 
     this.myPokemonListData.forEach((pokemon) => {
+      const onClick = async () => {
+        const resp = await fetch(
+          `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon/${pokemon.id}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (resp.status === 200) {
+          // eslint-disable-next-line no-param-reassign
+          pokemon.doWeHaveIt = false;
+          pokemon.htmlElement.remove();
+        }
+      };
+      // eslint-disable-next-line no-param-reassign
+      pokemon.doWeHaveIt = true;
       new PokemonCardComponent(
         pokemonListHolder,
         "pokemon-card",
         "article",
-        pokemon
+        pokemon,
+        onClick
       );
     });
   }
