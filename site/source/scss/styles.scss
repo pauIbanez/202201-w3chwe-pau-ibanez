@@ -332,6 +332,25 @@ p {
     z-index: 1;
   }
 
+  &__info-holder {
+    background-color: brown;
+    width: 100%;
+    margin-left: 50px;
+    border-radius: 10px;
+    padding: 30px;
+  }
+
+  &__item {
+    h2,
+    h3,
+    ul {
+      margin: 0;
+      list-style: none;
+    }
+    .title {
+    }
+  }
+
   &__controls {
     height: 15%;
     background-color: brown;
