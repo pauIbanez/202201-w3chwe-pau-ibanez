@@ -216,7 +216,8 @@ class PageComponent extends Component {
       this.element,
       "main-content",
       "main",
-      currMainData
+      currMainData,
+      "main-content__list-container"
     );
 
     const controllsParent = pokemonListComponent.element.querySelector(
@@ -337,11 +338,25 @@ class PageComponent extends Component {
       pokemonInfo,
       this.myPokemonListData
     );
+    const currMainData = this.mainTextData.find(
+      (mainTextDataItem) => mainTextDataItem.title === this.currentPage
+    );
 
-    new PokemonDetailsMainComponent(
+    const mainContent = new MainContentComponent(
       this.element,
       "main-content",
       "main",
+      currMainData,
+      "main-content__details-container"
+    );
+
+    const detailsHolder = mainContent.element.querySelector(
+      ".main-content__details-container"
+    );
+    new PokemonDetailsMainComponent(
+      detailsHolder,
+      "main-content__details-holder",
+      "article",
       formattedPokemonObject
     );
 

@@ -129,6 +129,16 @@ p {
     flex-wrap: wrap;
   }
 
+  &__details-container {
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+    height: 400px;
+    margin: -7px 0 0 0;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
   &__controls {
     display: flex;
     justify-content: space-between;
