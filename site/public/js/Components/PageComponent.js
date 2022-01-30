@@ -45,7 +45,7 @@ class PageComponent extends Component {
 
   myPokemonListData;
 
-  mainData = [
+  mainTextData = [
     {
       title: "All Pokémon",
       description: `Pokémon are the creatures that inhabit the world of the Pokémon games.
@@ -99,25 +99,11 @@ class PageComponent extends Component {
 
     const newHeaderData = this.headerData;
 
-    this.headerData.nav.navItems.forEach((navItem, index) => {
-      if (navItem.src !== "") {
-        if (`${navItem.src}.html` === `${page}`) {
-          newHeaderData.nav.navItems[index].selected = true;
-          this.currentPage = navItem.text;
-        }
-      } else if (`${navItem.src}` === `${page}`) {
-        newHeaderData.nav.navItems[index].selected = true;
-        this.currentPage = navItem.text;
-      }
-    });
-
-    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
     // this.headerData.nav.navItems.forEach((navItem, index) => {
     //   if (navItem.src !== "") {
-    //     if (`${navItem.src}` === `${page}`) {
+    //     if (`${navItem.src}.html` === `${page}`) {
     //       newHeaderData.nav.navItems[index].selected = true;
     //       this.currentPage = navItem.text;
-    //       const a = 3;
     //     }
     //   } else if (`${navItem.src}` === `${page}`) {
     //     newHeaderData.nav.navItems[index].selected = true;
@@ -125,27 +111,60 @@ class PageComponent extends Component {
     //   }
     // });
 
+    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
+    this.headerData.nav.navItems.forEach((navItem, index) => {
+      if (navItem.src !== "") {
+        if (`${navItem.src}` === `${page}`) {
+          newHeaderData.nav.navItems[index].selected = true;
+          this.currentPage = navItem.text;
+          const a = 3;
+        }
+      } else if (`${navItem.src}` === `${page}`) {
+        newHeaderData.nav.navItems[index].selected = true;
+        this.currentPage = navItem.text;
+      }
+    });
+
     new HeaderComponent(this.element, "main-header", "header", newHeaderData);
   }
 
   async buildMainContent() {
-    const currMainData = this.mainData.find(
-      (mainData) => mainData.title === this.currentPage
+    const currMainData = this.mainTextData.find(
+      (mainTextDataItem) => mainTextDataItem.title === this.currentPage
     );
+
+    const pokemonListResponse = await fetch(
+      "https://pokeapi.co/api/v2/pokemon?limit=8"
+    );
+
+    const pokemonList = await pokemonListResponse.json();
+    this.pokemonListData = pokemonList;
+
+    const pageControllData = {};
+    pageControllData.maxPokemons = this.pokemonListData.count;
+
+    // eslint-disable-next-line prefer-destructuring
+    pageControllData.currShown = this.pokemonListData.next
+      .split("=")[1]
+      .split("&")[0];
+
+    pageControllData.next = this.pokemonListData.next;
+    pageControllData.previous = this.pokemonListData.previous;
 
     new MainContentComponent(
       this.element,
       "main-content",
       "main",
-      currMainData
+      currMainData,
+      pageControllData
     );
 
-    const pokemonListResponse = await fetch(
+    const myPokemonListResponse = await fetch(
       "https://w3chwe-my-pokemon-api.herokuapp.com/pokemon"
     );
 
-    const pokemonList = await pokemonListResponse.json();
-    this.myPokemonListData = pokemonList;
+    const myPokemonList = await myPokemonListResponse.json();
+    this.myPokemonListData = myPokemonList;
 
     if (this.currentPage === "All Pokémon") {
       this.populatePokeList();
@@ -159,13 +178,6 @@ class PageComponent extends Component {
     const pokemonListHolder = this.element.querySelector(
       ".main-content__list-container"
     );
-    pokemonListHolder.innerHTML = "";
-    const pokemonListResponse = await fetch(
-      "https://pokeapi.co/api/v2/pokemon?limit=8"
-    );
-
-    const pokemonList = await pokemonListResponse.json();
-    this.pokemonListData = pokemonList;
 
     this.pokemonListData.results.forEach(async (pokemon) => {
       const pokemonResponse = await fetch(pokemon.url);
