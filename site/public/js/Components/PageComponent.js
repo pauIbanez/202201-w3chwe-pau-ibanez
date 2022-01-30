@@ -91,7 +91,7 @@ class PageComponent extends Component {
     super(document.body, "page-holder", "div");
 
     this.buildHeader();
-    this.buildMainContent();
+    this.getFirstPokemonList();
   }
 
   buildHeader() {
@@ -128,17 +128,23 @@ class PageComponent extends Component {
     new HeaderComponent(this.element, "main-header", "header", newHeaderData);
   }
 
-  async buildMainContent() {
-    const currMainData = this.mainTextData.find(
-      (mainTextDataItem) => mainTextDataItem.title === this.currentPage
-    );
-
+  async getFirstPokemonList() {
     const pokemonListResponse = await fetch(
       "https://pokeapi.co/api/v2/pokemon?limit=8"
     );
 
     const pokemonList = await pokemonListResponse.json();
     this.pokemonListData = pokemonList;
+    this.buildMainContent();
+  }
+
+  async buildMainContent() {
+    this.element.querySelector("main")?.remove();
+    this.element.querySelector("footer")?.remove();
+
+    const currMainData = this.mainTextData.find(
+      (mainTextDataItem) => mainTextDataItem.title === this.currentPage
+    );
 
     const pageControllData = {};
     pageControllData.maxPokemons = this.pokemonListData.count;
@@ -148,17 +154,38 @@ class PageComponent extends Component {
       .split("=")[1]
       .split("&")[0];
 
-    pageControllData.next = this.pokemonListData.next;
-    pageControllData.previous = this.pokemonListData.previous;
+    if (this.pokemonListData.previous !== null) {
+      pageControllData.previous = async () => {
+        const newPokeResponse = await fetch(this.pokemonListData.previous);
+        const responseBody = await newPokeResponse.json();
 
-    const pageComponent = new MainContentComponent(
+        this.pokemonListData = responseBody;
+        this.buildMainContent();
+      };
+    } else {
+      pageControllData.previous = null;
+    }
+
+    if (this.pokemonListData.next !== null) {
+      pageControllData.next = async () => {
+        const newPokeResponse = await fetch(this.pokemonListData.next);
+        const responseBody = await newPokeResponse.json();
+
+        this.pokemonListData = responseBody;
+        this.buildMainContent();
+      };
+    } else {
+      pageControllData.next = null;
+    }
+
+    const pokemonListComponent = new MainContentComponent(
       this.element,
       "main-content",
       "main",
       currMainData
     );
 
-    const controllsParent = pageComponent.element.querySelector(
+    const controllsParent = pokemonListComponent.element.querySelector(
       ".main-content__content-list"
     );
 
@@ -189,6 +216,7 @@ class PageComponent extends Component {
     const pokemonListHolder = this.element.querySelector(
       ".main-content__list-container"
     );
+    pokemonListHolder.innerHTML = "";
 
     this.pokemonListData.results.forEach(async (pokemon) => {
       const pokemonResponse = await fetch(pokemon.url);
@@ -257,6 +285,8 @@ class PageComponent extends Component {
     const pokemonListHolder = this.element.querySelector(
       ".main-content__list-container"
     );
+
+    pokemonListHolder.innerHTML = "";
 
     this.myPokemonListData.forEach((pokemon) => {
       new PokemonCardComponent(
