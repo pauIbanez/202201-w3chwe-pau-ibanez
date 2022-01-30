@@ -54,7 +54,7 @@ class PokemonDetailsMainComponent extends Component {
 
     this.pokemonData.types.forEach((type) => {
       const typeElement = new Component(typesHolder, `list-item ${type}`, "li");
-      typeElement.element.textContent = type;
+      typeElement.element.textContent = this.capitalizeFirstLetter(type);
     });
 
     const statsHolder = this.element.querySelector(
@@ -74,7 +74,7 @@ class PokemonDetailsMainComponent extends Component {
       ".details-holder__item--moves ul"
     );
 
-    this.pokemonData.moves.slice(0, 20).forEach((move) => {
+    this.pokemonData.moves.forEach((move) => {
       const typeElement = new Component(movesHolder, `list-item`, "li");
       typeElement.element.textContent = this.capitalizeFirstLetter(move);
     });
