@@ -3,6 +3,7 @@ import Component from "./Component.js";
 import FooterComponent from "./FooterComponent.js";
 import HeaderComponent from "./HeaderComponent.js";
 import MainContentComponent from "./MainContentComponent.js";
+import PageControllsComponent from "./PageControllsComponent.js";
 import PokemonCardComponent from "./PokemonCardComponent.js";
 
 class PageComponent extends Component {
@@ -45,7 +46,7 @@ class PageComponent extends Component {
 
   myPokemonListData;
 
-  mainData = [
+  mainTextData = [
     {
       title: "All Pokémon",
       description: `Pokémon are the creatures that inhabit the world of the Pokémon games.
@@ -90,8 +91,7 @@ class PageComponent extends Component {
     super(document.body, "page-holder", "div");
 
     this.buildHeader();
-    this.buildMainContent();
-    this.buildFooter();
+    this.getFirstPokemonList();
   }
 
   buildHeader() {
@@ -128,24 +128,80 @@ class PageComponent extends Component {
     new HeaderComponent(this.element, "main-header", "header", newHeaderData);
   }
 
-  async buildMainContent() {
-    const currMainData = this.mainData.find(
-      (mainData) => mainData.title === this.currentPage
+  async getFirstPokemonList() {
+    const pokemonListResponse = await fetch(
+      "https://pokeapi.co/api/v2/pokemon?limit=8"
     );
 
-    new MainContentComponent(
+    const pokemonList = await pokemonListResponse.json();
+    this.pokemonListData = pokemonList;
+    this.buildMainContent();
+  }
+
+  async buildMainContent() {
+    this.element.querySelector("main")?.remove();
+    this.element.querySelector("footer")?.remove();
+
+    const currMainData = this.mainTextData.find(
+      (mainTextDataItem) => mainTextDataItem.title === this.currentPage
+    );
+
+    const pageControllData = {};
+    pageControllData.maxPokemons = this.pokemonListData.count;
+
+    // eslint-disable-next-line prefer-destructuring
+    pageControllData.currShown = this.pokemonListData.next
+      .split("=")[1]
+      .split("&")[0];
+
+    if (this.pokemonListData.previous !== null) {
+      pageControllData.previous = async () => {
+        const newPokeResponse = await fetch(this.pokemonListData.previous);
+        const responseBody = await newPokeResponse.json();
+
+        this.pokemonListData = responseBody;
+        this.buildMainContent();
+      };
+    } else {
+      pageControllData.previous = null;
+    }
+
+    if (this.pokemonListData.next !== null) {
+      pageControllData.next = async () => {
+        const newPokeResponse = await fetch(this.pokemonListData.next);
+        const responseBody = await newPokeResponse.json();
+
+        this.pokemonListData = responseBody;
+        this.buildMainContent();
+      };
+    } else {
+      pageControllData.next = null;
+    }
+
+    const pokemonListComponent = new MainContentComponent(
       this.element,
       "main-content",
       "main",
       currMainData
     );
 
-    const pokemonListResponse = await fetch(
+    const controllsParent = pokemonListComponent.element.querySelector(
+      ".main-content__content-list"
+    );
+
+    new PageControllsComponent(
+      controllsParent,
+      "main-content__controls",
+      "div",
+      pageControllData
+    );
+
+    const myPokemonListResponse = await fetch(
       "https://w3chwe-my-pokemon-api.herokuapp.com/pokemon"
     );
 
-    const pokemonList = await pokemonListResponse.json();
-    this.myPokemonListData = pokemonList;
+    const myPokemonList = await myPokemonListResponse.json();
+    this.myPokemonListData = myPokemonList;
 
     if (this.currentPage === "All Pokémon") {
       this.populatePokeList();
@@ -153,6 +209,7 @@ class PageComponent extends Component {
     if (this.currentPage === "My Pokémon") {
       this.populateMyPokeList();
     }
+    this.buildFooter();
   }
 
   async populatePokeList() {
@@ -160,12 +217,6 @@ class PageComponent extends Component {
       ".main-content__list-container"
     );
     pokemonListHolder.innerHTML = "";
-    const pokemonListResponse = await fetch(
-      "https://pokeapi.co/api/v2/pokemon?limit=8"
-    );
-
-    const pokemonList = await pokemonListResponse.json();
-    this.pokemonListData = pokemonList;
 
     this.pokemonListData.results.forEach(async (pokemon) => {
       const pokemonResponse = await fetch(pokemon.url);
@@ -234,6 +285,8 @@ class PageComponent extends Component {
     const pokemonListHolder = this.element.querySelector(
       ".main-content__list-container"
     );
+
+    pokemonListHolder.innerHTML = "";
 
     this.myPokemonListData.forEach((pokemon) => {
       new PokemonCardComponent(
