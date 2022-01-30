@@ -21,11 +21,6 @@ class MainContentComponent extends Component {
       <section class="main-content__content-list">
         <div class="main-content__list-container">
         </div>
-        <div class="main-content__controls">
-          <button class="button">&lt;&lt; Previous</button>
-          <div class="position">80/10000</div>
-          <button class="button">Next >></button>
-        </div>
       </section>
     `;
   }

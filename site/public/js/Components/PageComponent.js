@@ -3,6 +3,7 @@ import Component from "./Component.js";
 import FooterComponent from "./FooterComponent.js";
 import HeaderComponent from "./HeaderComponent.js";
 import MainContentComponent from "./MainContentComponent.js";
+import PageControllsComponent from "./PageControllsComponent.js";
 import PokemonCardComponent from "./PokemonCardComponent.js";
 
 class PageComponent extends Component {
@@ -91,7 +92,6 @@ class PageComponent extends Component {
 
     this.buildHeader();
     this.buildMainContent();
-    this.buildFooter();
   }
 
   buildHeader() {
@@ -151,11 +151,21 @@ class PageComponent extends Component {
     pageControllData.next = this.pokemonListData.next;
     pageControllData.previous = this.pokemonListData.previous;
 
-    new MainContentComponent(
+    const pageComponent = new MainContentComponent(
       this.element,
       "main-content",
       "main",
-      currMainData,
+      currMainData
+    );
+
+    const controllsParent = pageComponent.element.querySelector(
+      ".main-content__content-list"
+    );
+
+    new PageControllsComponent(
+      controllsParent,
+      "main-content__controls",
+      "div",
       pageControllData
     );
 
@@ -172,6 +182,7 @@ class PageComponent extends Component {
     if (this.currentPage === "My Pokémon") {
       this.populateMyPokeList();
     }
+    this.buildFooter();
   }
 
   async populatePokeList() {
