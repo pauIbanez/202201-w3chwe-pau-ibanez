@@ -15,7 +15,7 @@ class PageControllsComponent extends Component {
   generateHTML() {
     this.element.innerHTML = `
       <button class="button">&lt;&lt; Previous</button>
-      <div class="position">80/10000</div>
+      <div class="position">${this.controllsData.currShown}/${this.controllsData.maxPokemons}</div>
       <button class="button">Next >></button>
     `;
   }
