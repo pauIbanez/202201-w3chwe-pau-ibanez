@@ -343,16 +343,17 @@ p {
   }
 
   &__img {
-    margin-top: 10px;
-    width: 90%;
+    margin-top: 20px;
+    width: 75%;
     height: 220px;
     object-fit: cover;
     object-position: bottom;
     z-index: 1;
+    filter: saturate(2);
 
     &--ground {
       position: absolute;
-      top: 200px;
+      top: 190px;
       z-index: 0;
     }
   }
@@ -438,10 +439,10 @@ p {
   }
   &__img {
     z-index: 1;
+    filter: saturate(2);
   }
 
   &__info-holder {
-    // background-color: brown;
     width: 100%;
     margin-left: 50px;
     border-radius: 10px;
