@@ -1,6 +1,8 @@
 @import "../node_modules/font-awesome/css/font-awesome.min.css";
 @import url(../fonts/bahnschrift.ttf);
 
+@import "types";
+
 * {
   box-sizing: border-box;
 }
@@ -445,85 +447,4 @@ p {
     height: 15%;
     background-color: brown;
   }
-}
-
-.type {
-  border-radius: 10px;
-  min-width: 50px;
-  padding: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.normal {
-  background-color: #a8a87b;
-}
-
-.fight {
-  background-color: #c12f29;
-}
-
-.flying {
-  background-color: #a597d3;
-}
-
-.poison {
-  background-color: #a0419d;
-}
-
-.ground {
-  background-color: #dec266;
-}
-
-.rock {
-  background-color: #b7a038;
-}
-
-.bug {
-  background-color: #a8b822;
-}
-
-.ghost {
-  background-color: #705798;
-}
-
-.steel {
-  background-color: #b8b8d0;
-}
-
-.fire {
-  background-color: #f17f2f;
-}
-
-.water {
-  background-color: #6890f1;
-}
-
-.grass {
-  background-color: #7ac74a;
-}
-
-.electric {
-  background-color: #f4d135;
-}
-
-.psychic {
-  background-color: #ef5c85;
-}
-
-.ice {
-  background-color: #97d8d8;
-}
-
-.dragon {
-  background-color: #6a47bf;
-}
-
-.dark {
-  background-color: #6f5848;
-}
-
-.fairy {
-  background-color: #fb69cf;
 }
