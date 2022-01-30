@@ -315,6 +315,7 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 10px;
 
     h2 {
       flex: 1;
@@ -329,7 +330,6 @@ p {
     justify-content: flex-end;
     gap: 10px;
     list-style: none;
-    margin-left: 20px;
     flex: 1;
   }
 
@@ -346,6 +346,10 @@ p {
     .pokemon-stats-item {
       display: flex;
       justify-content: space-between;
+
+      .stat-value {
+        text-align: right;
+      }
     }
   }
 }
