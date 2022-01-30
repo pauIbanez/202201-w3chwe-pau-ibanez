@@ -4,7 +4,8 @@ class PokemonData {
   }
 
   generateFormatedObject(pokemonObject, myPokemon) {
-    this.img = pokemonObject.sprites.other["official-artwork"].front_default;
+    this.img = pokemonObject.sprites.other.home.front_default;
+    this.shinyImg = pokemonObject.sprites.other.home.front_shiny;
     this.name = pokemonObject.name;
     this.id = pokemonObject.id;
 
@@ -48,8 +49,13 @@ class PokemonData {
 
     this.moves = moves;
 
-    if (myPokemon.some((pokemon) => pokemon.id === pokemonObject.id)) {
+    const myListVersion = myPokemon.find(
+      (pokemon) => pokemon.id === pokemonObject.id
+    );
+
+    if (myListVersion) {
       this.doWeHaveIt = true;
+      this.shiny = myListVersion.shiny;
     } else {
       this.doWeHaveIt = false;
     }

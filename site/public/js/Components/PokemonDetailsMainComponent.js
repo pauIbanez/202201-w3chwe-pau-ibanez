@@ -7,9 +7,9 @@ class PokemonDetailsMainComponent extends Component {
     super(parentElement, className, htmlTag);
 
     this.pokemonData = pokemonData;
-
     this.generateHTML();
     this.generateLists();
+    this.generateButtons();
   }
 
   generateHTML() {
@@ -17,7 +17,7 @@ class PokemonDetailsMainComponent extends Component {
         <div class="details-holder__details">
           <div class="details-holder__img-holder">
             <img class="details-holder__ground"src="../img/ground.png" />
-            <img class="details-holder__img"src="${this.pokemonData.img}" />
+            <img class="details-holder__img"src="" />
           </div>
           <div class="details-holder__info-holder">
             <h2 class="details-holder__name"> ${
@@ -38,7 +38,9 @@ class PokemonDetailsMainComponent extends Component {
             </section>
           </div>
         </div>
-        <div class="details-holder__controls"></div>
+        <div class="details-holder__controls">
+        
+        </div>
     `;
   }
 
@@ -82,6 +84,101 @@ class PokemonDetailsMainComponent extends Component {
       const typeElement = new Component(movesHolder, `list-item`, "li");
       typeElement.element.textContent = this.capitalizeFirstLetter(move);
     });
+  }
+
+  generateImg() {
+    if (this.pokemonData.shiny) {
+      this.img = this.pokemonData.shinyImg;
+    } else {
+      this.img = this.pokemonData.img;
+    }
+    this.element.querySelector(".details-holder__img").src = this.img;
+  }
+
+  assesChanges() {
+    if (this.pokemonData.doWeHaveIt) {
+      this.catchButton.textContent = "Remove from my list";
+      this.shinyButton.disabled = false;
+    } else {
+      this.shinyButton.disabled = true;
+      this.img = this.pokemonData.img;
+      this.catchButton.textContent = "Add to my list";
+    }
+
+    if (this.pokemonData.shiny) {
+      this.shinyButton.textContent = "Remove shiny";
+    } else {
+      this.shinyButton.textContent = "Make shiny";
+    }
+    this.generateImg();
+  }
+
+  generateButtons() {
+    const buttonHolder = this.element.querySelector(
+      ".details-holder__controls"
+    );
+
+    const catchButton = document.createElement("button");
+
+    const onCatchClick = async () => {
+      if (this.pokemonData.doWeHaveIt) {
+        const resp = await fetch(
+          `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon/${this.pokemonData.id}`,
+          {
+            method: "DELETE",
+          }
+        );
+        if (resp.status === 200) {
+          this.pokemonData.doWeHaveIt = false;
+          this.pokemonData.shiny = false;
+        }
+      } else {
+        const resp = await fetch(
+          `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon`,
+          {
+            method: "POST",
+            body: JSON.stringify(this.pokemonData),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (resp.status === 201) {
+          this.pokemonData.doWeHaveIt = true;
+        }
+      }
+      this.assesChanges();
+    };
+
+    catchButton.addEventListener("click", onCatchClick);
+    this.catchButton = catchButton;
+
+    buttonHolder.append(catchButton);
+
+    const shinyButton = document.createElement("button");
+
+    const onShinyClick = async () => {
+      const resp = await fetch(
+        `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon/${this.pokemonData.id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({ shiny: !this.pokemonData.shiny }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (resp.status === 200) {
+        this.pokemonData.shiny = !this.pokemonData.shiny;
+      }
+      this.assesChanges();
+    };
+
+    shinyButton.addEventListener("click", onShinyClick);
+    this.shinyButton = shinyButton;
+    buttonHolder.append(shinyButton);
+
+    this.assesChanges();
   }
 }
 

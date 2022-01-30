@@ -3,6 +3,7 @@ import Component from "./Component.js";
 class PokemonCardComponent extends Component {
   pokemonObject;
   onClick;
+  img;
 
   constructor(parentElement, className, htmlTag, pokemonObject, onClick) {
     super(parentElement, className, htmlTag);
@@ -12,6 +13,7 @@ class PokemonCardComponent extends Component {
     this.pokemonObject.htmlElement = this.element;
 
     this.generateHTML();
+    this.generateImg();
     this.generateTypes();
     this.addEventListener();
     this.assesOwned();
@@ -40,7 +42,7 @@ class PokemonCardComponent extends Component {
           alt=""
           class="pokemon-card__img--ground"
         />
-        <img src="${this.pokemonObject.img}" alt="" class="pokemon-card__img" />
+        <img src="" alt="" class="pokemon-card__img" />
         
         <section class="pokemon-card__main-info">
           <h2 class="pokemin-card__name">${this.pokemonObject.name}</h2>
@@ -63,6 +65,15 @@ class PokemonCardComponent extends Component {
         </ul>
         <button class="pokemon-card__overlay"><i class="fa fa-times-circle"></i></button>
     `;
+  }
+
+  generateImg() {
+    if (this.pokemonObject.shiny) {
+      this.img = this.pokemonObject.shinyImg;
+    } else {
+      this.img = this.pokemonObject.img;
+    }
+    this.element.querySelector(".pokemon-card__img").src = this.img;
   }
 
   generateTypes() {
