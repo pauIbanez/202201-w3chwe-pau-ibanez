@@ -42,7 +42,7 @@ class PokemonData {
     this.height = 7;
 
     const moves = [];
-    pokemonObject.moves.forEach((move) => {
+    pokemonObject.moves.forEach(({ move }) => {
       moves.push(move.name);
     });
 

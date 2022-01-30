@@ -20,6 +20,7 @@ class PokemonDetailsMainComponent extends Component {
         </p>
       </header>
       <section class="main-content__pokemon-info">
+      ${JSON.stringify(this.pokemonData)}
       </section>
     `;
   }

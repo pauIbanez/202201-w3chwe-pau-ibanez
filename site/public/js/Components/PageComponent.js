@@ -95,9 +95,16 @@ class PageComponent extends Component {
     this.buildHeader();
   }
 
-  assesParams() {
+  async assesParams() {
     const params = new URLSearchParams(window.location.search);
     const pokemonID = params.get("id");
+
+    const myPokemonListResponse = await fetch(
+      "https://w3chwe-my-pokemon-api.herokuapp.com/pokemon"
+    );
+
+    const myPokemonList = await myPokemonListResponse.json();
+    this.myPokemonListData = myPokemonList;
 
     if (window.location.pathname !== "/pokemondetails") {
       if (pokemonID === null) {
@@ -222,13 +229,6 @@ class PageComponent extends Component {
       "div",
       pageControllData
     );
-
-    const myPokemonListResponse = await fetch(
-      "https://w3chwe-my-pokemon-api.herokuapp.com/pokemon"
-    );
-
-    const myPokemonList = await myPokemonListResponse.json();
-    this.myPokemonListData = myPokemonList;
 
     if (this.currentPage === "All Pokémon") {
       this.populatePokeList();
