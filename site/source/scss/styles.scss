@@ -16,10 +16,10 @@ p {
 }
 
 .background-pattern {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  height: 1540px;
+  height: 100vh;
   width: 100%;
   background-image: url("../img/container_bg.png");
   background-size: 400px;
@@ -70,7 +70,7 @@ p {
   margin: 0 auto;
   margin-top: 70px;
   width: 1200px;
-  height: 1200px;
+  height: fit-content;
   background-color: white;
   box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.5);
   display: flex;

@@ -106,26 +106,26 @@ class PageComponent extends Component {
     const myPokemonList = await myPokemonListResponse.json();
     this.myPokemonListData = myPokemonList;
 
-    // if (window.location.pathname !== "/pokemondetails") {
-    //   if (pokemonID === null) {
-    //     this.getFirstPokemonList();
-    //   } else {
-    //     const a = 3;
-    //     window.location.href = `pokemondetails${window.location.search}`;
-    //   }
-    // } else {
-    //   this.buildPokemonDetails(pokemonID);
-    // }
-
-    if (window.location.pathname !== "/pokemondetails.html") {
+    if (window.location.pathname !== "/pokemondetails") {
       if (pokemonID === null) {
         this.getFirstPokemonList();
       } else {
-        window.location.href = `pokemondetails.html${window.location.search}`;
+        const a = 3;
+        window.location.href = `pokemondetails${window.location.search}`;
       }
     } else {
       this.buildPokemonDetails(pokemonID);
     }
+
+    // if (window.location.pathname !== "/pokemondetails.html") {
+    //   if (pokemonID === null) {
+    //     this.getFirstPokemonList();
+    //   } else {
+    //     window.location.href = `pokemondetails.html${window.location.search}`;
+    //   }
+    // } else {
+    //   this.buildPokemonDetails(pokemonID);
+    // }
   }
 
   buildHeader() {
@@ -133,31 +133,31 @@ class PageComponent extends Component {
 
     const newHeaderData = this.headerData;
 
-    this.headerData.nav.navItems.forEach((navItem, index) => {
-      if (navItem.src !== "") {
-        if (`${navItem.src}.html` === `${page}`) {
-          newHeaderData.nav.navItems[index].selected = true;
-          this.currentPage = navItem.text;
-        }
-      } else if (`${navItem.src}` === `${page}`) {
-        newHeaderData.nav.navItems[index].selected = true;
-        this.currentPage = navItem.text;
-      }
-    });
-
-    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
     // this.headerData.nav.navItems.forEach((navItem, index) => {
     //   if (navItem.src !== "") {
-    //     if (`${navItem.src}` === `${page}`) {
+    //     if (`${navItem.src}.html` === `${page}`) {
     //       newHeaderData.nav.navItems[index].selected = true;
     //       this.currentPage = navItem.text;
-    //       const a = 3;
     //     }
     //   } else if (`${navItem.src}` === `${page}`) {
     //     newHeaderData.nav.navItems[index].selected = true;
     //     this.currentPage = navItem.text;
     //   }
     // });
+
+    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
+    this.headerData.nav.navItems.forEach((navItem, index) => {
+      if (navItem.src !== "") {
+        if (`${navItem.src}` === `${page}`) {
+          newHeaderData.nav.navItems[index].selected = true;
+          this.currentPage = navItem.text;
+          const a = 3;
+        }
+      } else if (`${navItem.src}` === `${page}`) {
+        newHeaderData.nav.navItems[index].selected = true;
+        this.currentPage = navItem.text;
+      }
+    });
 
     new HeaderComponent(this.element, "main-header", "header", newHeaderData);
   }
@@ -224,12 +224,14 @@ class PageComponent extends Component {
       ".main-content__content-list"
     );
 
-    new PageControllsComponent(
-      controllsParent,
-      "main-content__controls",
-      "div",
-      pageControllData
-    );
+    if (this.currentPage === "All Pokémon") {
+      new PageControllsComponent(
+        controllsParent,
+        "main-content__controls",
+        "div",
+        pageControllData
+      );
+    }
 
     if (this.currentPage === "All Pokémon") {
       this.populatePokeList();
