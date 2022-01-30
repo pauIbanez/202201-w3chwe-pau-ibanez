@@ -140,7 +140,9 @@ class PageComponent extends Component {
       currMainData
     );
 
-    const pokemonListResponse = await fetch("http://localhost:4000/pokemon");
+    const pokemonListResponse = await fetch(
+      "https://w3chwe-my-pokemon-api.herokuapp.com/pokemon"
+    );
 
     const pokemonList = await pokemonListResponse.json();
     this.myPokemonListData = pokemonList;
@@ -177,7 +179,7 @@ class PageComponent extends Component {
       const onClick = async () => {
         if (formattedObject.doWeHaveIt) {
           const resp = await fetch(
-            `http://localhost:4000/pokemon/${formattedObject.id}`,
+            `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon/${formattedObject.id}`,
             {
               method: "DELETE",
             }
@@ -186,13 +188,16 @@ class PageComponent extends Component {
             this.buildMainContent();
           }
         } else {
-          const resp = await fetch(`http://localhost:4000/pokemon`, {
-            method: "POST",
-            body: JSON.stringify(formattedObject),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+          const resp = await fetch(
+            `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon`,
+            {
+              method: "POST",
+              body: JSON.stringify(formattedObject),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           if (resp.status === 201) {
             this.buildMainContent();
           }
