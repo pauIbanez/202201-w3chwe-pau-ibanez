@@ -9,6 +9,7 @@ class PokemonDetailsMainComponent extends Component {
     this.pokemonData = pokemonData;
 
     this.generateHTML();
+    this.generateLists();
   }
 
   generateHTML() {
@@ -39,6 +40,44 @@ class PokemonDetailsMainComponent extends Component {
         </div>
         <div class="details-holder__controls"></div>
     `;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.substring(1);
+  }
+
+  generateLists() {
+    const typesHolder = this.element.querySelector(
+      ".details-holder__item--types ul"
+    );
+
+    this.pokemonData.types.forEach((type) => {
+      const typeElement = new Component(typesHolder, `list-item ${type}`, "li");
+      typeElement.element.textContent = type;
+    });
+
+    const statsHolder = this.element.querySelector(
+      ".details-holder__item--stats ul"
+    );
+
+    this.pokemonData.stats.forEach((stat) => {
+      const typeElement = new Component(statsHolder, `list-item`, "li");
+      typeElement.element.innerHTML = `
+        <span>${this.capitalizeFirstLetter(stat.name)}</span> <span>${
+        stat.value
+      }</span>
+      `;
+    });
+
+    const movesHolder = this.element.querySelector(
+      ".details-holder__item--moves ul"
+    );
+
+    this.pokemonData.moves.slice(0, 20).forEach((move) => {
+      const typeElement = new Component(movesHolder, `list-item`, "li");
+      typeElement.element.textContent = this.capitalizeFirstLetter(move);
+    });
   }
 }
 
