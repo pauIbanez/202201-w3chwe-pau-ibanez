@@ -518,6 +518,10 @@ p {
         font-weight: 800;
         cursor: pointer;
       }
+
+      &:disabled {
+        filter: brightness(0.7);
+      }
     }
   }
 }

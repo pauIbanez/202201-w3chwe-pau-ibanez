@@ -10,6 +10,7 @@ class PokemonDetailsMainComponent extends Component {
 
     this.generateHTML();
     this.generateLists();
+    this.generateButtons();
   }
 
   generateHTML() {
@@ -39,8 +40,7 @@ class PokemonDetailsMainComponent extends Component {
           </div>
         </div>
         <div class="details-holder__controls">
-        <button class="controls__shiny"> Make Shiny </button>
-        <button class="controls__mylist"> Add to list </button>
+        
         </div>
     `;
   }
@@ -85,6 +85,91 @@ class PokemonDetailsMainComponent extends Component {
       const typeElement = new Component(movesHolder, `list-item`, "li");
       typeElement.element.textContent = this.capitalizeFirstLetter(move);
     });
+  }
+
+  assesChanges() {
+    if (this.pokemonData.doWeHaveIt) {
+      this.catchButton.textContent = "Remove from my list";
+      this.shinyButton.disabled = false;
+    } else {
+      this.shinyButton.disabled = true;
+      this.catchButton.textContent = "Add to my list";
+    }
+
+    if (this.pokemonData.shiny) {
+      this.shinyButton.textContent = "Remove shiny";
+      this.element.querySelector("img").src = this.pokemonData.shinyImg;
+    } else {
+      this.shinyButton.textContent = "Make shiny";
+      this.element.querySelector("img").src = this.pokemonData.img;
+    }
+  }
+
+  generateButtons() {
+    const buttonHolder = this.element.querySelector(
+      ".details-holder__controls"
+    );
+
+    const catchButton = document.createElement("button");
+
+    const onCatchClick = async () => {
+      if (this.pokemonData.doWeHaveIt) {
+        const resp = await fetch(
+          `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon/${this.pokemonData.id}`,
+          {
+            method: "DELETE",
+          }
+        );
+        if (resp.status === 200) {
+          this.pokemonData.doWeHaveIt = false;
+        }
+      } else {
+        const resp = await fetch(
+          `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon`,
+          {
+            method: "POST",
+            body: JSON.stringify(this.pokemonData),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (resp.status === 201) {
+          this.pokemonData.doWeHaveIt = true;
+        }
+      }
+      this.assesChanges();
+    };
+
+    catchButton.addEventListener("click", onCatchClick);
+    this.catchButton = catchButton;
+
+    buttonHolder.append(catchButton);
+
+    const shinyButton = document.createElement("button");
+
+    const onShinyClick = async () => {
+      const resp = await fetch(
+        `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon/${this.pokemonData.id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({ shiny: !this.pokemonData.shiny }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (resp.status === 200) {
+        this.pokemonData.shiny = !this.pokemonData.shiny;
+      }
+      this.assesChanges();
+    };
+
+    shinyButton.addEventListener("click", onShinyClick);
+    this.shinyButton = shinyButton;
+    buttonHolder.append(shinyButton);
+
+    this.assesChanges();
   }
 }
 
