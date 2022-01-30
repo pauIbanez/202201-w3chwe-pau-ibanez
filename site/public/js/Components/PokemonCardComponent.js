@@ -72,7 +72,7 @@ class PokemonCardComponent extends Component {
       const typeElement = document.createElement("li");
 
       typeElement.textContent = type;
-      typeElement.className = `type type--${type.toLowerCase()}`;
+      typeElement.className = `type ${type}`;
 
       typeHolder.append(typeElement);
     });
