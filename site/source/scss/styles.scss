@@ -189,6 +189,19 @@ p {
   color: white;
   transition: all 0.2s;
 
+  &--archived {
+    border-bottom: 5px solid red;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.5);
+
+    .pokemon-card__overlay {
+      display: block;
+    }
+  }
+
   &__overlay {
     display: none;
     position: absolute;
@@ -206,15 +219,6 @@ p {
 
     &--archived {
       transform: rotate(0);
-    }
-  }
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.5);
-
-    .pokemon-card__overlay {
-      display: block;
     }
   }
 

@@ -99,31 +99,31 @@ class PageComponent extends Component {
 
     const newHeaderData = this.headerData;
 
-    // this.headerData.nav.navItems.forEach((navItem, index) => {
-    //   if (navItem.src !== "") {
-    //     if (`${navItem.src}.html` === `${page}`) {
-    //       newHeaderData.nav.navItems[index].selected = true;
-    //       this.currentPage = navItem.text;
-    //     }
-    //   } else if (`${navItem.src}` === `${page}`) {
-    //     newHeaderData.nav.navItems[index].selected = true;
-    //     this.currentPage = navItem.text;
-    //   }
-    // });
-
-    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
     this.headerData.nav.navItems.forEach((navItem, index) => {
       if (navItem.src !== "") {
-        if (`${navItem.src}` === `${page}`) {
+        if (`${navItem.src}.html` === `${page}`) {
           newHeaderData.nav.navItems[index].selected = true;
           this.currentPage = navItem.text;
-          const a = 3;
         }
       } else if (`${navItem.src}` === `${page}`) {
         newHeaderData.nav.navItems[index].selected = true;
         this.currentPage = navItem.text;
       }
     });
+
+    // Ignorad esto por ahora, en local necesito el navImen.src sin .html y en netlify con!
+    // this.headerData.nav.navItems.forEach((navItem, index) => {
+    //   if (navItem.src !== "") {
+    //     if (`${navItem.src}` === `${page}`) {
+    //       newHeaderData.nav.navItems[index].selected = true;
+    //       this.currentPage = navItem.text;
+    //       const a = 3;
+    //     }
+    //   } else if (`${navItem.src}` === `${page}`) {
+    //     newHeaderData.nav.navItems[index].selected = true;
+    //     this.currentPage = navItem.text;
+    //   }
+    // });
 
     new HeaderComponent(this.element, "main-header", "header", newHeaderData);
   }
@@ -188,6 +188,10 @@ class PageComponent extends Component {
             formattedPokemonObject.htmlElement
               .querySelector("button")
               .classList.remove("pokemon-card__overlay--archived");
+
+            formattedPokemonObject.htmlElement.classList.remove(
+              "pokemon-card--archived"
+            );
             formattedPokemonObject.doWeHaveIt = false;
           }
         } else {
@@ -205,6 +209,10 @@ class PageComponent extends Component {
             formattedPokemonObject.htmlElement
               .querySelector("button")
               .classList.add("pokemon-card__overlay--archived");
+
+            formattedPokemonObject.htmlElement.classList.add(
+              "pokemon-card--archived"
+            );
             formattedPokemonObject.doWeHaveIt = true;
           }
         }
