@@ -13,16 +13,14 @@ class PokemonDetailsMainComponent extends Component {
 
   generateHTML() {
     this.element.innerHTML = `
-          <header class="main-content__content-header">
-        <h1 class="main-content__title">Pokémon Details</h1>
-        <p class="main-content__desc">
-          Here you han find more dtails about your favourite pokémons!
-        </p>
-      </header>
-      <section class="main-content__pokemon-info">
-      <div class="main-content__list-container"> asdas
+        <div class="details-holder__details">
+          <div class="details-holder__img-holder">
+            <img class="details-holder__ground"src="../img/ground.png" />
+            <img class="details-holder__img"src="${this.pokemonData.img}" />
+          </div>
+          <div class="details-holder__info-holder"></div>
         </div>
-      </section>
+        <div class="details-holder__controls"></div>
     `;
   }
 }

@@ -347,15 +347,13 @@ class PageComponent extends Component {
       "main-content",
       "main",
       currMainData,
-      "main-content__details-container"
+      "details-holder"
     );
 
-    const detailsHolder = mainContent.element.querySelector(
-      ".main-content__details-container"
-    );
+    const detailsHolder = mainContent.element.querySelector(".details-holder");
     new PokemonDetailsMainComponent(
       detailsHolder,
-      "main-content__details-holder",
+      "details-holder",
       "article",
       formattedPokemonObject
     );
