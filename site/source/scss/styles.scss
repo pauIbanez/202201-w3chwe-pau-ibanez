@@ -172,6 +172,7 @@ p {
   }
 
   &__list-container {
+    padding-left: 3px;
     display: flex;
     justify-content: flex-start;
     gap: 7px;
@@ -222,6 +223,23 @@ p {
   height: 400px;
   color: white;
 
+  &__media {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+
+    a {
+      padding: 10px;
+      &:hover {
+        cursor: pointer;
+        color: red;
+      }
+    }
+  }
+
   &__item {
     width: 50%;
     display: flex;
@@ -231,7 +249,16 @@ p {
     &--right {
       position: relative;
       flex-direction: column;
-      padding: 20px;
+      justify-content: center;
+      align-items: flex-start;
+      padding-left: 150px;
+      padding-right: 150px;
+
+      p {
+        font-size: 10px;
+        width: 50%;
+        filter: brightness(0.8);
+      }
 
       &::before {
         position: absolute;
