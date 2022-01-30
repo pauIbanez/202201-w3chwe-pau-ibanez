@@ -7,7 +7,6 @@ class PokemonDetailsMainComponent extends Component {
     super(parentElement, className, htmlTag);
 
     this.pokemonData = pokemonData;
-
     this.generateHTML();
     this.generateLists();
     this.generateButtons();
@@ -18,7 +17,7 @@ class PokemonDetailsMainComponent extends Component {
         <div class="details-holder__details">
           <div class="details-holder__img-holder">
             <img class="details-holder__ground"src="../img/ground.png" />
-            <img class="details-holder__img"src="${this.pokemonData.img}" />
+            <img class="details-holder__img"src="" />
           </div>
           <div class="details-holder__info-holder">
             <h2 class="details-holder__name"> ${
@@ -87,22 +86,31 @@ class PokemonDetailsMainComponent extends Component {
     });
   }
 
+  generateImg() {
+    if (this.pokemonData.shiny) {
+      this.img = this.pokemonData.shinyImg;
+    } else {
+      this.img = this.pokemonData.img;
+    }
+    this.element.querySelector(".details-holder__img").src = this.img;
+  }
+
   assesChanges() {
     if (this.pokemonData.doWeHaveIt) {
       this.catchButton.textContent = "Remove from my list";
       this.shinyButton.disabled = false;
     } else {
       this.shinyButton.disabled = true;
+      this.img = this.pokemonData.img;
       this.catchButton.textContent = "Add to my list";
     }
 
     if (this.pokemonData.shiny) {
       this.shinyButton.textContent = "Remove shiny";
-      this.element.querySelector("img").src = this.pokemonData.shinyImg;
     } else {
       this.shinyButton.textContent = "Make shiny";
-      this.element.querySelector("img").src = this.pokemonData.img;
     }
+    this.generateImg();
   }
 
   generateButtons() {
