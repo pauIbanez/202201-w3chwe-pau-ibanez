@@ -9,11 +9,12 @@ class PokemonCardComponent extends Component {
 
     this.pokemonObject = pokemonObject;
     this.onClick = onClick;
+    this.pokemonObject.htmlElement = this.element;
 
     this.generateHTML();
     this.generateTypes();
     this.addEventListener();
-    this.assesButton();
+    this.assesOwned();
   }
 
   generateHTML() {
@@ -72,11 +73,13 @@ class PokemonCardComponent extends Component {
     });
   }
 
-  assesButton() {
+  assesOwned() {
     const button = this.element.querySelector("button");
     if (this.pokemonObject.doWeHaveIt) {
+      this.element.classList.add("pokemon-card--archived");
       button.classList.add("pokemon-card__overlay--archived");
     } else {
+      this.element.classList.remove("pokemon-card--archived");
       button.classList.remove("pokemon-card__overlay--archived");
     }
   }

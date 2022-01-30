@@ -175,6 +175,16 @@ p {
   color: white;
   transition: all 0.2s;
 }
+.pokemon-card--archived {
+  border-bottom: 5px solid red;
+}
+.pokemon-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
+}
+.pokemon-card:hover .pokemon-card__overlay {
+  display: block;
+}
 .pokemon-card__overlay {
   display: none;
   position: absolute;
@@ -186,19 +196,12 @@ p {
   font-size: 30px;
   border-radius: 50%;
   z-index: 2;
-  transition: all 0.6 ease-in-out;
-  transform: rotate(315deg);
+  transition: all 0.5s ease-in-out;
+  transform: rotate(-315deg);
   cursor: pointer;
 }
 .pokemon-card__overlay--archived {
   transform: rotate(0);
-}
-.pokemon-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
-}
-.pokemon-card:hover .pokemon-card__overlay {
-  display: block;
 }
 .pokemon-card__hp {
   position: absolute;

@@ -171,35 +171,49 @@ class PageComponent extends Component {
       const pokemonResponse = await fetch(pokemon.url);
       const pokemonData = await pokemonResponse.json();
 
-      const formattedObject = new PokemonData(
+      const formattedPokemonObject = new PokemonData(
         pokemonData,
         this.myPokemonListData
       );
 
       const onClick = async () => {
-        if (formattedObject.doWeHaveIt) {
+        if (formattedPokemonObject.doWeHaveIt) {
           const resp = await fetch(
-            `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon/${formattedObject.id}`,
+            `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon/${formattedPokemonObject.id}`,
             {
               method: "DELETE",
             }
           );
           if (resp.status === 200) {
-            this.buildMainContent();
+            formattedPokemonObject.htmlElement
+              .querySelector("button")
+              .classList.remove("pokemon-card__overlay--archived");
+
+            formattedPokemonObject.htmlElement.classList.remove(
+              "pokemon-card--archived"
+            );
+            formattedPokemonObject.doWeHaveIt = false;
           }
         } else {
           const resp = await fetch(
             `https://w3chwe-my-pokemon-api.herokuapp.com/pokemon`,
             {
               method: "POST",
-              body: JSON.stringify(formattedObject),
+              body: JSON.stringify(formattedPokemonObject),
               headers: {
                 "Content-Type": "application/json",
               },
             }
           );
           if (resp.status === 201) {
-            this.buildMainContent();
+            formattedPokemonObject.htmlElement
+              .querySelector("button")
+              .classList.add("pokemon-card__overlay--archived");
+
+            formattedPokemonObject.htmlElement.classList.add(
+              "pokemon-card--archived"
+            );
+            formattedPokemonObject.doWeHaveIt = true;
           }
         }
       };
@@ -209,7 +223,7 @@ class PageComponent extends Component {
           pokemonListHolder,
           "pokemon-card",
           "article",
-          formattedObject,
+          formattedPokemonObject,
           onClick
         )
       );
