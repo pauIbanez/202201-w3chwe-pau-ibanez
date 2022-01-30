@@ -17,13 +17,13 @@ class FooterComponent extends Component {
       </section>
       <section class="main-footer__item main-footer__item--right">
         <h2 class="main-footer__propperty">Propperty of The Pokémon Company</h2>
-        <ul class="main-footer__media">
-          <li class="main-footer__media-link"><img src="" alt="" /></li>
-          <li class="main-footer__media-link"><img src="" alt="" /></li>
-          <li class="main-footer__media-link"><img src="" alt="" /></li>
-          <li class="main-footer__media-link"><img src="" alt="" /></li>
-          <li class="main-footer__media-link"><img src="" alt="" /></li>
-        </ul>
+        <div class="main-footer__media">
+          <a class="main-footer__media-link"><i class="fa fa-facebook"></i></a>
+          <a class="main-footer__media-link"><i class="fa fa-instagram"></i></i></a>
+          <a class="main-footer__media-link"><i class="fa fa-pinterest-p"></i></a>
+          <a class="main-footer__media-link"><i class="fa fa-youtube"></i></a>
+          <a class="main-footer__media-link"><i class="fa fa-twitter"></i></a>
+        </div>
         <p class="main-footer__copyright">
           ©2022 Pokémon. ©1995 - 2022 Nintendo/Creatures Inc./GAME FREAK inc.
           TM, ®Nintendo.
