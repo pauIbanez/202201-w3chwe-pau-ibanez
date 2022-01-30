@@ -130,6 +130,7 @@ class PokemonDetailsMainComponent extends Component {
         );
         if (resp.status === 200) {
           this.pokemonData.doWeHaveIt = false;
+          this.pokemonData.shiny = false;
         }
       } else {
         const resp = await fetch(
