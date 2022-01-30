@@ -90,8 +90,34 @@ class PageComponent extends Component {
   constructor() {
     super(document.body, "page-holder", "div");
 
+    this.assesParams();
     this.buildHeader();
-    this.getFirstPokemonList();
+  }
+
+  assesParams() {
+    const params = new URLSearchParams(window.location.search);
+    const pokemonID = params.get("id");
+
+    // if (window.location.pathname !== "/pokemondetails") {
+    //   if (pokemonID === null) {
+    //     this.getFirstPokemonList();
+    //   } else {
+    //     const a = 3;
+    //     window.location.href = `pokemondetails${window.location.search}`;
+    //   }
+    // } else {
+    //   this.buildPokemonDetails(pokemonID);
+    // }
+
+    if (window.location.pathname !== "/pokemondetails.html") {
+      if (pokemonID === null) {
+        this.getFirstPokemonList();
+      } else {
+        window.location.href = `pokemondetails.html${window.location.search}`;
+      }
+    } else {
+      this.buildPokemonDetails(pokemonID);
+    }
   }
 
   buildHeader() {
@@ -296,6 +322,17 @@ class PageComponent extends Component {
         pokemon
       );
     });
+  }
+
+  async buildPokemonDetails(pokemonId) {
+    const pokemonResponse = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+    );
+
+    const pokemonInfo = await pokemonResponse.json();
+    this.element.innerHTML += `<img src="${pokemonInfo.sprites.other.home.front_default}"/>`;
+
+    this.buildFooter();
   }
 
   buildFooter() {
