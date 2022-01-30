@@ -129,14 +129,6 @@ p {
     flex-wrap: wrap;
   }
 
-  &__details-container {
-    height: 500px;
-    margin: -7px 0 0 0;
-    padding-bottom: 10px;
-    flex-wrap: wrap;
-    background-color: #474747;
-  }
-
   &__controls {
     display: flex;
     justify-content: space-between;
@@ -304,6 +296,10 @@ p {
 .details-holder {
   height: 100%;
   width: 100%;
+  background-color: #474747;
+  box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.2);
+  border-radius: 10px;
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
