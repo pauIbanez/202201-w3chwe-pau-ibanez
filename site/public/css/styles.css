@@ -186,8 +186,8 @@ p {
   font-size: 30px;
   border-radius: 50%;
   z-index: 2;
-  transition: all 0.6 ease-in-out;
-  transform: rotate(315deg);
+  transition: all 0.5s ease-in-out;
+  transform: rotate(-315deg);
   cursor: pointer;
 }
 .pokemon-card__overlay--archived {
